@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "module": "nodenext",
+        "target": "es2020",
+        "allowJs": false,
+        "esModuleInterop": true,
+        "moduleResolution": "nodenext",
+        "strict": true,
+        "noFallthroughCasesInSwitch": true,
+        "skipLibCheck": true,
+        "declaration": true,
+        "baseUrl": ".",
+        "rootDir": "src",
+        "outDir": "dist",
+        "emitDeclarationOnly": true
+    },
+    "include": ["src"]
+}
