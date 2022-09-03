@@ -20,7 +20,8 @@ export interface LogRecordResultSet {
 export interface QueryLogRecordResponse {
     resultSet?: LogRecordResultSet;
 }
-interface BlsOptions {
+
+export interface BlsOptions {
     region: string;
     credentials: BceCredential;
 }

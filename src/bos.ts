@@ -2,19 +2,19 @@ import fs, {ReadStream} from 'node:fs';
 import {BceCredential} from './authorization';
 import {Http} from './http';
 
-interface ListObjectOptions {
+export interface ListObjectOptions {
     delimiter?: string;
     marker?: string;
     maxKeys?: number;
     prefix?: string;
 }
 
-interface ObjectOwner {
+export interface ObjectOwner {
     id: string;
     displayName: string;
 }
 
-interface ObjectContent {
+export interface ObjectContent {
     key: string;
     lastModified: string;
     eTag: string;
@@ -23,11 +23,11 @@ interface ObjectContent {
     owner: ObjectOwner;
 }
 
-interface CommonPrefix {
+export interface CommonPrefix {
     prefix: string;
 }
 
-interface ListObjectResponse {
+export interface ListObjectResponse {
     name: string;
     prefix: string;
     delimiter: string;
@@ -39,13 +39,13 @@ interface ListObjectResponse {
     contents: ObjectContent[];
 }
 
-interface PutObjectOptions {
+export interface PutObjectOptions {
     headers?: Record<string, string>;
 }
 
-type ObjectBody = string | Blob | ArrayBuffer | ReadStream;
+export type ObjectBody = string | Blob | ArrayBuffer | ReadStream;
 
-interface BosOptions {
+export interface BosOptions {
     region: string;
     credentials: BceCredential;
 }
@@ -126,6 +126,14 @@ export class BosClient {
         const stream = fs.createReadStream(file);
         const response = await this.putObject(bucketName, key, stream, options);
         return response;
+    }
 
+    async deleteObject(bucketName: string, key: string) {
+        const response = await this.http.noContent(
+            'DELETE',
+            `/${key}`,
+            {headers: {host: `${bucketName}.${this.hostBase}`}}
+        );
+        return response;
     }
 }
