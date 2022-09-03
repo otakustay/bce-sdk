@@ -2,10 +2,12 @@
   "name": "@otakustay/bce-sdk",
   "version": "0.8.0",
   "description": "Yet another Baidu Cloud SDK",
-  "type": "module",
+  "type": "commonjs",
   "exports": {
     ".": "./dist/index.js"
   },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "lint": "eslint src",
     "build": "tsc -p tsconfig.build.json",

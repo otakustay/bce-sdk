@@ -1,5 +1,5 @@
-import {BceCredential} from './authorization.js';
-import {Http} from './http.js';
+import {BceCredential} from './authorization';
+import {Http} from './http';
 
 interface ListObjectOptions {
     delimiter?: string;

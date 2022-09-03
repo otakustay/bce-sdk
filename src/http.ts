@@ -2,7 +2,7 @@ import {Blob} from 'node:buffer';
 import {ReadableStream} from 'node:stream/web';
 import {fetch} from 'undici';
 import {fromPairs} from 'ramda';
-import {Authorization, BceCredential} from './authorization.js';
+import {Authorization, BceCredential} from './authorization';
 
 const stringifyDate = (date: Date) => date.toISOString().replace(/\.\d+Z$/, 'Z');
 

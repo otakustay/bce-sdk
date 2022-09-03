@@ -1,3 +1,3 @@
-export {BceCredential} from './authorization.js';
-export * from './bls.js';
-export * from './bos.js';
+export {BceCredential} from './authorization';
+export * from './bls';
+export * from './bos';
