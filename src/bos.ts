@@ -43,7 +43,7 @@ interface BosOptions {
     credentials: BceCredential;
 }
 
-export default class BosClient {
+export class BosClient {
     private readonly hostBase: string;
     private readonly http: Http;
 
@@ -52,12 +52,12 @@ export default class BosClient {
         this.http = Http.fromEndpoint(this.hostBase, credentials);
     }
 
-    async listObjects(bucketName: string, options: ListObjectOptions) {
+    async listObjects(bucketName: string, options?: ListObjectOptions) {
         const params = new URLSearchParams();
-        options.delimiter && params.set('delimiter', options.delimiter);
-        options.marker && params.set('marker', options.marker);
-        options.maxKeys && params.set('maxKeys', options.maxKeys.toString());
-        options.prefix && params.set('prefix', options.prefix);
+        options?.delimiter && params.set('delimiter', options.delimiter);
+        options?.marker && params.set('marker', options.marker);
+        options?.maxKeys && params.set('maxKeys', options.maxKeys.toString());
+        options?.prefix && params.set('prefix', options.prefix);
 
         const response = await this.http.json<ListObjectResponse>(
             'GET',
@@ -70,6 +70,6 @@ export default class BosClient {
                 },
             }
         );
-        return response.body;
+        return response;
     }
 }
