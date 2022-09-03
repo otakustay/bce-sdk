@@ -1,3 +1,5 @@
+import {Blob} from 'node:buffer';
+import {ReadableStream} from 'node:stream/web';
 import {fetch} from 'undici';
 import {fromPairs} from 'ramda';
 import {Authorization, BceCredential} from './authorization.js';
@@ -49,6 +51,21 @@ export class Http {
     async text(method: string, url: string, options: RequestOptions): Promise<ClientResponse<string>> {
         const {headers, response} = await this.request(method, url, options);
         return {headers, body: await response.text()};
+    }
+
+    async blob(method: string, url: string, options: RequestOptions): Promise<ClientResponse<Blob>> {
+        const {headers, response} = await this.request(method, url, options);
+        return {headers, body: await response.blob()};
+    }
+
+    async stream(method: string, url: string, options: RequestOptions): Promise<ClientResponse<ReadableStream>> {
+        const {headers, response} = await this.request(method, url, options);
+
+        if (response.body) {
+            return {headers, body: response.body};
+        }
+
+        throw new Error(`No stream body in response of ${method} ${url}`);
     }
 
     private async request(method: string, url: string, options: RequestOptions) {

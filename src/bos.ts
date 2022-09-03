@@ -72,4 +72,31 @@ export class BosClient {
         );
         return response;
     }
+
+    async getObject(bucketName: string, key: string) {
+        const response = await this.http.text(
+            'GET',
+            `/${key}`,
+            {headers: {host: `${bucketName}.${this.hostBase}`}}
+        );
+        return response;
+    }
+
+    async getObjectAsBlob(bucketName: string, key: string) {
+        const response = await this.http.blob(
+            'GET',
+            `/${key}`,
+            {headers: {host: `${bucketName}.${this.hostBase}`}}
+        );
+        return response;
+    }
+
+    async getObjectAsStream(bucketName: string, key: string) {
+        const response = await this.http.stream(
+            'GET',
+            `/${key}`,
+            {headers: {host: `${bucketName}.${this.hostBase}`}}
+        );
+        return response;
+    }
 }
