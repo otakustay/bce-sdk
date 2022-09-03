@@ -1,6 +1,6 @@
 import {Blob} from 'node:buffer';
 import {ReadableStream} from 'node:stream/web';
-import {fetch} from 'undici';
+import {BodyInit, fetch} from 'undici';
 import {fromPairs} from 'ramda';
 import {Authorization, BceCredential} from './authorization';
 
@@ -11,12 +11,16 @@ const BASE_DOMAIN = 'baidubce.com';
 export interface RequestOptions {
     params?: URLSearchParams | undefined;
     headers?: Record<string, string>;
-    body?: any;
+    body?: BodyInit;
 }
 
 export interface ClientResponse<T> {
     headers: Record<string, string>;
     body: T;
+}
+
+export interface ClientResponseNoContent {
+    headers: Record<string, string>;
 }
 
 export class Http {
@@ -51,6 +55,11 @@ export class Http {
     async text(method: string, url: string, options: RequestOptions): Promise<ClientResponse<string>> {
         const {headers, response} = await this.request(method, url, options);
         return {headers, body: await response.text()};
+    }
+
+    async noContent(method: string, url: string, options: RequestOptions): Promise<ClientResponseNoContent> {
+        const {headers} = await this.request(method, url, options);
+        return {headers};
     }
 
     async blob(method: string, url: string, options: RequestOptions): Promise<ClientResponse<Blob>> {
@@ -93,6 +102,7 @@ export class Http {
                     authorization,
                     'x-bce-date': timestamp,
                 },
+                body: options.body,
             }
         );
         return {

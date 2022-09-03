@@ -1,3 +1,4 @@
+import fs, {ReadStream} from 'node:fs';
 import {BceCredential} from './authorization';
 import {Http} from './http';
 
@@ -37,6 +38,12 @@ interface ListObjectResponse {
     nextMarker: string;
     contents: ObjectContent[];
 }
+
+interface PutObjectOptions {
+    headers?: Record<string, string>;
+}
+
+type ObjectBody = string | Blob | ArrayBuffer | ReadStream;
 
 interface BosOptions {
     region: string;
@@ -98,5 +105,27 @@ export class BosClient {
             {headers: {host: `${bucketName}.${this.hostBase}`}}
         );
         return response;
+    }
+
+    async putObject(bucketName: string, key: string, body: ObjectBody, options?: PutObjectOptions) {
+        const response = await this.http.noContent(
+            'PUT',
+            `/${key}`,
+            {
+                body,
+                headers: {
+                    ...options?.headers,
+                    host: `${bucketName}.${this.hostBase}`,
+                },
+            }
+        );
+        return response;
+    }
+
+    async putObjectFromFile(bucketName: string, key: string, file: string, options?: PutObjectOptions) {
+        const stream = fs.createReadStream(file);
+        const response = await this.putObject(bucketName, key, stream, options);
+        return response;
+
     }
 }
