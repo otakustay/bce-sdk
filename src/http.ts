@@ -3,6 +3,7 @@ import {ReadableStream} from 'node:stream/web';
 import {BodyInit, fetch} from 'undici';
 import {fromPairs} from 'ramda';
 import {Authorization, BceCredential} from './authorization';
+import {RequestError} from './error';
 
 const stringifyDate = (date: Date) => date.toISOString().replace(/\.\d+Z$/, 'Z');
 
@@ -105,9 +106,14 @@ export class Http {
                 body: options.body,
             }
         );
-        return {
-            response,
-            headers: fromPairs([...response.headers.entries()]),
-        };
+
+        const responseHeaders = fromPairs([...response.headers.entries()]);
+
+        if (response.ok) {
+            return {headers: responseHeaders, response};
+        }
+
+        const body = await response.text();
+        throw new RequestError(response.status, responseHeaders, body);
     }
 }
