@@ -8,11 +8,8 @@
         "strict": true,
         "noFallthroughCasesInSwitch": true,
         "skipLibCheck": true,
-        "declaration": true,
-        "baseUrl": ".",
-        "rootDir": "src",
-        "outDir": "dist",
-        "emitDeclarationOnly": true
+        "noEmit": true,
+        "declaration": false
     },
-    "include": ["src"]
+    "include": ["src", "*.ts"]
 }
