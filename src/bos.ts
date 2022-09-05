@@ -1,6 +1,6 @@
 import fs, {ReadStream} from 'node:fs';
-import {BceCredential} from './authorization';
-import {Http} from './http';
+import {BceCredential} from './authorization.js';
+import {Http} from './http.js';
 
 export interface ListObjectOptions {
     delimiter?: string;

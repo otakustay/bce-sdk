@@ -1,5 +1,5 @@
-import {BceCredential} from './authorization';
-import {Http} from './http';
+import {BceCredential} from './authorization.js';
+import {Http} from './http.js';
 
 const stringifyDate = (date: Date) => date.toISOString().replace(/\.\d+Z$/, 'Z');
 
@@ -42,12 +42,7 @@ export class BlsClient {
         const response = await this.http.json<QueryLogRecordResponse>(
             'GET',
             `/v1/logstore/${logStoreName}/logrecord`,
-            {
-                params,
-                headers: {
-                    'content-type': 'application/json',
-                },
-            }
+            {params}
         );
         return response;
     }

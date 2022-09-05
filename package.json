@@ -2,22 +2,27 @@
   "name": "@otakustay/bce-sdk",
   "version": "0.9.1",
   "description": "Yet another Baidu Cloud SDK",
-  "type": "commonjs",
+  "type": "module",
   "exports": {
-    ".": "./dist/index.js"
+    ".": {
+      "import": "./es/index.js",
+      "require": "./cjs/index.js"
+    }
   },
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "module": "./es/index.js",
+  "main": "./cjs/index.js",
+  "types": "./cjs/index.d.ts",
   "scripts": {
     "lint": "eslint src",
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsc -p tsconfig.cjs.json && tsc -p tsconfig.es.json",
     "ci": "yarn install --immutable && npm run lint && npm run build",
     "release": "standard-version",
     "deploy": "npm publish --access public",
     "prepublishOnly": "npm run ci"
   },
   "files": [
-    "dist"
+    "cjs",
+    "es"
   ],
   "repository": {
     "type": "git",

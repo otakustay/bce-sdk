@@ -72,9 +72,9 @@ Thumbs.db
 
 # build assets
 /output
+/es
+/cjs
 /dist
-/dll
-/site
 
 # yarn
 .pnp.*
