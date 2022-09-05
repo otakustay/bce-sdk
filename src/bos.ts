@@ -60,17 +60,16 @@ export class BosClient {
     }
 
     async listObjects(bucketName: string, options?: ListObjectOptions) {
-        const params = new URLSearchParams();
-        options?.delimiter && params.set('delimiter', options.delimiter);
-        options?.marker && params.set('marker', options.marker);
-        options?.maxKeys && params.set('maxKeys', options.maxKeys.toString());
-        options?.prefix && params.set('prefix', options.prefix);
-
         const response = await this.http.json<ListObjectResponse>(
             'GET',
             '/',
             {
-                params,
+                params: {
+                    delimiter: options?.delimiter,
+                    marker: options?.marker,
+                    maxKeys: options?.maxKeys,
+                    prefix: options?.prefix,
+                },
                 headers: {
                     'content-type': 'application/json',
                     host: `${bucketName}.${this.hostBase}`,

@@ -34,15 +34,16 @@ export class BlsClient {
     }
 
     async queryLogRecord({logStoreName, query, startDateTime, endDateTime}: LogRecordQuery) {
-        const params = new URLSearchParams();
-        params.set('query', query);
-        params.set('startDateTime', stringifyDate(startDateTime));
-        params.set('endDateTime', stringifyDate(endDateTime));
-
         const response = await this.http.json<QueryLogRecordResponse>(
             'GET',
             `/v1/logstore/${logStoreName}/logrecord`,
-            {params}
+            {
+                params: {
+                    query,
+                    startDateTime: stringifyDate(startDateTime),
+                    endDateTime: stringifyDate(endDateTime),
+                },
+            }
         );
         return response;
     }

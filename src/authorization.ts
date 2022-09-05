@@ -6,7 +6,7 @@ export interface BceCredential {
 }
 
 export interface RequestInfo {
-    params?: Array<[string, string]> | undefined;
+    params: Array<[string, string]> | null;
     headers: Record<string, string>;
     method: string;
     url: string;
@@ -23,7 +23,7 @@ const NORMALIZE_MAP: Record<string, string> = {
 const normalize = (value: string) =>
     encodeURIComponent(value).replace(/[!'()*]/g, v => NORMALIZE_MAP[v]);
 
-const canonicalizeSearchParams = (params: Array<[string, string]> | undefined) => {
+const canonicalizeSearchParams = (params: Array<[string, string]> | null) => {
     if (!params) {
         return '';
     }

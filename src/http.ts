@@ -1,18 +1,34 @@
 import {Blob} from 'node:buffer';
 import {ReadableStream} from 'node:stream/web';
-import {BodyInit, fetch} from 'undici';
+import {BodyInit, RequestInit, fetch} from 'undici';
 import {fromPairs} from 'ramda';
 import {Authorization, BceCredential} from './authorization.js';
 import {RequestError} from './error.js';
 
 const stringifyDate = (date: Date) => date.toISOString().replace(/\.\d+Z$/, 'Z');
 
+// https://github.com/sindresorhus/is-plain-obj/blob/68e8cc77bb1bbd0bf7d629d3574b6ca70289b2cc/index.js
+const isPlainObject = (value: any): value is Record<string, any> => {
+    if (typeof value !== 'object' || value === null) {
+        return false;
+    }
+
+    const prototype = Object.getPrototypeOf(value);
+    return (
+        (prototype === null || prototype === Object.prototype || Object.getPrototypeOf(prototype) === null)
+            && !(Symbol.toStringTag in value)
+            && !(Symbol.iterator in value)
+    );
+};
+
 const BASE_DOMAIN = 'baidubce.com';
 
+type SearchParamsDict = Record<string, string | number | undefined | null | undefined>;
+
 export interface RequestOptions {
-    params?: URLSearchParams | undefined;
+    params?: URLSearchParams | SearchParamsDict | undefined;
     headers?: Record<string, string>;
-    body?: BodyInit;
+    body?: BodyInit | Record<string, any> | undefined;
 }
 
 export interface ClientResponse<T> {
@@ -23,6 +39,27 @@ export interface ClientResponse<T> {
 export interface ClientResponseNoContent {
     headers: Record<string, string>;
 }
+
+const constructSearchParams = (dict: URLSearchParams | SearchParamsDict | undefined) => {
+    if (!dict) {
+        return null;
+    }
+
+    if (dict instanceof URLSearchParams) {
+        return dict;
+    }
+
+    const entries = Object.entries(dict).reduce(
+        (entries, [key, value]) => {
+            if (value != null) {
+                entries.push([key, value.toString()]);
+            }
+            return entries;
+        },
+        [] as Array<[string, string]>
+    );
+    return entries.length ? new URLSearchParams(entries) : null;
+};
 
 export class Http {
     private readonly baseUrl: string;
@@ -81,11 +118,12 @@ export class Http {
     private async request(method: string, url: string, options: RequestOptions) {
         const {headers, params} = options;
         const timestamp = stringifyDate(new Date());
+        const searchParams = constructSearchParams(params);
         const authorization = this.authorization.authorize(
             {
                 method,
                 url,
-                params: params && [...params.entries()],
+                params: searchParams && [...searchParams.entries()],
                 headers: {
                     host: this.host,
                     'x-bce-date': timestamp,
@@ -94,17 +132,29 @@ export class Http {
             },
             {timestamp}
         );
+        const request: RequestInit = {
+            method,
+            headers: {
+                ...headers,
+                authorization,
+                'x-bce-date': timestamp,
+            },
+        };
+
+        if (isPlainObject(options.body)) {
+            request.body = JSON.stringify(options.body);
+            Object.assign(
+                request.headers!,
+                {'content-type': 'application/json'}
+            );
+        }
+        else if (options.body) {
+            request.body = options.body;
+        }
+
         const response = await fetch(
-            this.baseUrl + url + (params ? `?${params}` : ''),
-            {
-                method,
-                headers: {
-                    ...headers,
-                    authorization,
-                    'x-bce-date': timestamp,
-                },
-                body: options.body,
-            }
+            this.baseUrl + url + (searchParams ? `?${searchParams}` : ''),
+            request
         );
 
         const responseHeaders = fromPairs([...response.headers.entries()]);
