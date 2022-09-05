@@ -13,7 +13,8 @@
     "build": "tsc -p tsconfig.build.json",
     "ci": "yarn install --immutable && npm run lint && npm run build",
     "release": "standard-version",
-    "deploy": "npm publish --access public"
+    "deploy": "npm publish --access public",
+    "prepublishOnly": "npm run ci"
   },
   "files": [
     "dist"
