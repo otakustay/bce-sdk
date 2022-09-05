@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.2](https://github.com/otakustay/bce-sdk/compare/v0.9.1...v0.9.2) (2022-09-05)
+
+
+### Features
+
+* **sts:** 实现STS服务 ([#3](https://github.com/otakustay/bce-sdk/issues/3)) ([ce14ecb](https://github.com/otakustay/bce-sdk/commit/ce14ecb2bf2cc85e4428ea6d22459e7365dd14ba))
+* 同时发布ES和CJS版本 ([7072459](https://github.com/otakustay/bce-sdk/commit/7072459fe50b2153bd64a6df78668c1a04e0ad02))
+
 ### [0.9.1](https://github.com/otakustay/bce-sdk/compare/v0.9.0...v0.9.1) (2022-09-05)
 
 
