@@ -1,6 +1,8 @@
 import {BceCredential} from './authorization.js';
 import {Http} from './http.js';
 
+// https://cloud.baidu.com/doc/BLS/s/Ck8qtng1c
+
 const stringifyDate = (date: Date) => date.toISOString().replace(/\.\d+Z$/, 'Z');
 
 export interface LogRecordQuery {

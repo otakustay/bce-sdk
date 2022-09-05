@@ -421,7 +421,6 @@ __metadata:
     standard-version: ^9.5.0
     ts-node: ^10.9.1
     typescript: next
-    undici: ^5.10.0
   languageName: unknown
   linkType: soft
 
@@ -485,16 +484,16 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:^14.0.0":
-  version: 14.18.26
-  resolution: "@types/node@npm:14.18.26::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40types%2Fnode%2F-%2Fnode-14.18.26.tgz"
-  checksum: c6ac3f9d4f6f77c0fa5ac17757779ad4d9835abfe3af5708b7552597cb5c7c1103e83499ccaf767a1cfa70040990bcf3f58761c547051dc8d5077f3c419091b1
+  version: 14.18.27
+  resolution: "@types/node@npm:14.18.27::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40types%2Fnode%2F-%2Fnode-14.18.27.tgz"
+  checksum: b5ed55caf950ae0a49dbf39a349ca4875b2af6c6ea5a90e733c151226f79ead6c23f61908491b0b96063c21ba2f1ab818a0c3edd59b8cc45c024a30d4e478ec6
   languageName: node
   linkType: hard
 
 "@types/node@npm:^18.7.14":
-  version: 18.7.14
-  resolution: "@types/node@npm:18.7.14::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40types%2Fnode%2F-%2Fnode-18.7.14.tgz"
-  checksum: 99cf28ff854100158de875cca23c7acc3cc01dfee526a52b90b7f36767c821bcbaf2be0a98a70f06f3b78f3c60639168ff949d725b61e2e124f9f71f1fb8043d
+  version: 18.7.15
+  resolution: "@types/node@npm:18.7.15::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40types%2Fnode%2F-%2Fnode-18.7.15.tgz"
+  checksum: 1435fc7fe44744467a3ba8ace646455be228516530dbb3db64a03cca6abcfdc5ba2e48a3eafc71f25f836d2ca871132361c58a5e760237a53674cb09151147d9
   languageName: node
   linkType: hard
 
@@ -3236,7 +3235,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.6.4":
+"typescript@next, typescript@npm:^4.6.4":
   version: 4.8.2
   resolution: "typescript@npm:4.8.2::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2Ftypescript%2F-%2Ftypescript-4.8.2.tgz"
   bin:
@@ -3246,17 +3245,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:next":
-  version: 4.9.0-dev.20220903
-  resolution: "typescript@npm:4.9.0-dev.20220903::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2Ftypescript%2F-%2Ftypescript-4.9.0-dev.20220903.tgz"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 6a1c8498c3b45f5bee9300f5712e82359922dc6d15800add996765767a54f184adeb274febbde23ffb1b32b863fa599b3828296173f194c9ecd6f507a6371f27
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@^4.6.4#~builtin<compat/typescript>":
+"typescript@patch:typescript@^4.6.4#~builtin<compat/typescript>, typescript@patch:typescript@next#~builtin<compat/typescript>":
   version: 4.8.2
   resolution: "typescript@patch:typescript@npm%3A4.8.2%3A%3A__archiveUrl=https%253A%252F%252Fregistry.npmjs.org%252Ftypescript%252F-%252Ftypescript-4.8.2.tgz#~builtin<compat/typescript>::version=4.8.2&hash=a1c5e5"
   bin:
@@ -3266,29 +3255,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@next#~builtin<compat/typescript>":
-  version: 4.9.0-dev.20220903
-  resolution: "typescript@patch:typescript@npm%3A4.9.0-dev.20220903%3A%3A__archiveUrl=https%253A%252F%252Fregistry.npmjs.org%252Ftypescript%252F-%252Ftypescript-4.9.0-dev.20220903.tgz#~builtin<compat/typescript>::version=4.9.0-dev.20220903&hash=a1c5e5"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 0a8bb73e63861996741e37b29a513acf558459d894484463e3363b036c5b4a3611de5b19ac5cb5b4fcce2d3b0a752ea1440ae0fc681d1e05eed8315e3f1cb3f8
-  languageName: node
-  linkType: hard
-
 "uglify-js@npm:^3.1.4":
   version: 3.17.0
   resolution: "uglify-js@npm:3.17.0::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2Fuglify-js%2F-%2Fuglify-js-3.17.0.tgz"
   bin:
     uglifyjs: bin/uglifyjs
   checksum: 20d1fcac05e74db949a9579a36f9a1af88430e590bc9c22410b76686035c55cef65247ca1935d2f6440c78928227684219c8b1ddfcd858213049cb2890821392
-  languageName: node
-  linkType: hard
-
-"undici@npm:^5.10.0":
-  version: 5.10.0
-  resolution: "undici@npm:5.10.0::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2Fundici%2F-%2Fundici-5.10.0.tgz"
-  checksum: 7ba2b71dccc74cd2bdf645b83e9aaef374ae04855943d0a2f42a3d0b9e5556f37cc9b5156fb5288277a2fa95fd46a56f3ae0d5cf73db3f008d75ec41104b136c
   languageName: node
   linkType: hard
 

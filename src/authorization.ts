@@ -1,5 +1,7 @@
 import crypto from 'node:crypto';
 
+// https://cloud.baidu.com/doc/Reference/s/njwvz1yfu
+
 export interface BceCredential {
     ak: string;
     sk: string;

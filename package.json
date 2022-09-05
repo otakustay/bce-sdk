@@ -12,6 +12,9 @@
   "module": "./es/index.js",
   "main": "./cjs/index.js",
   "types": "./cjs/index.d.ts",
+  "engines": {
+    "node": ">= 18"
+  },
   "scripts": {
     "lint": "eslint src",
     "build": "tsc -p tsconfig.cjs.json && tsc -p tsconfig.es.json",
@@ -57,7 +60,6 @@
     "typescript": "next"
   },
   "dependencies": {
-    "ramda": "^0.28.0",
-    "undici": "^5.10.0"
+    "ramda": "^0.28.0"
   }
 }

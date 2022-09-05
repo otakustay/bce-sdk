@@ -1,6 +1,4 @@
 import {Blob} from 'node:buffer';
-import {ReadableStream} from 'node:stream/web';
-import {BodyInit, RequestInit, fetch} from 'undici';
 import {fromPairs} from 'ramda';
 import {Authorization, BceCredential} from './authorization.js';
 import {RequestError} from './error.js';
@@ -35,6 +33,8 @@ export interface ClientResponse<T> {
     headers: Record<string, string>;
     body: T;
 }
+
+type ResponseStream = ReadableStream<Uint8Array>;
 
 export interface ClientResponseNoContent {
     headers: Record<string, string>;
@@ -105,7 +105,7 @@ export class Http {
         return {headers, body: await response.blob()};
     }
 
-    async stream(method: string, url: string, options: RequestOptions): Promise<ClientResponse<ReadableStream>> {
+    async stream(method: string, url: string, options: RequestOptions): Promise<ClientResponse<ResponseStream>> {
         const {headers, response} = await this.request(method, url, options);
 
         if (response.body) {

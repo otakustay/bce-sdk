@@ -1,6 +1,8 @@
 import {BceCredential} from './authorization.js';
 import {Http} from './http.js';
 
+// https://cloud.baidu.com/doc/IAM/s/Qjwvyc8ov
+
 interface AssumeRoleOptions {
     accountId: string;
     roleName: string;

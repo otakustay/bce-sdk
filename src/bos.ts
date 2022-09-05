@@ -2,6 +2,8 @@ import fs, {ReadStream} from 'node:fs';
 import {BceCredential} from './authorization.js';
 import {Http} from './http.js';
 
+// https://cloud.baidu.com/doc/BOS/s/Rjwvysdnp
+
 export interface ListObjectOptions {
     delimiter?: string;
     marker?: string;
