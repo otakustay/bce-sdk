@@ -17,7 +17,7 @@
   },
   "scripts": {
     "lint": "eslint src",
-    "build": "tsc -p tsconfig.cjs.json && tsc -p tsconfig.es.json",
+    "build": "tsc -p tsconfig.cjs.json && tsc -p tsconfig.es.json && echo '{\"type\": \"commonjs\"}' > cjs/package.json",
     "ci": "yarn install --immutable && npm run lint && npm run build",
     "release": "standard-version",
     "deploy": "npm publish --access public",
