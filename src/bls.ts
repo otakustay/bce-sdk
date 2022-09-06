@@ -1,5 +1,5 @@
-import {BceCredential} from './authorization.js';
 import {Http} from './http.js';
+import {RegionClientOptions} from './interface.js';
 
 // https://cloud.baidu.com/doc/BLS/s/Ck8qtng1c
 
@@ -23,16 +23,13 @@ export interface QueryLogRecordResponse {
     resultSet?: LogRecordResultSet;
 }
 
-export interface BlsOptions {
-    region: string;
-    credentials: BceCredential;
-}
+export type BlsOptions = RegionClientOptions;
 
 export class BlsClient {
     private readonly http: Http;
 
-    constructor({region, credentials}: BlsOptions) {
-        this.http = Http.fromRegionSupportedServiceId('bls-log', region, credentials);
+    constructor(options: BlsOptions) {
+        this.http = Http.fromRegionSupportedServiceId('bls-log', options);
     }
 
     async queryLogRecord({logStoreName, query, startDateTime, endDateTime}: LogRecordQuery) {

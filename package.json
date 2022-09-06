@@ -5,8 +5,8 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./es/index.js",
-      "require": "./cjs/index.js"
+      "require": "./cjs/index.js",
+      "import": "./es/index.js"
     }
   },
   "module": "./es/index.js",

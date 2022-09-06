@@ -1,11 +1,7 @@
 import crypto from 'node:crypto';
+import {BceCredential} from './interface.js';
 
 // https://cloud.baidu.com/doc/Reference/s/njwvz1yfu
-
-export interface BceCredential {
-    ak: string;
-    sk: string;
-}
 
 export interface RequestInfo {
     params: Array<[string, string]> | null;

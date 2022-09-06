@@ -1,4 +1,4 @@
-import {BceCredential} from './authorization.js';
+import {RegionClientOptions} from './interface.js';
 import {Http} from './http.js';
 
 // https://cloud.baidu.com/doc/IAM/s/Qjwvyc8ov
@@ -11,9 +11,21 @@ interface AssumeRoleOptions {
     acl?: string;
 }
 
+// https://cloud.baidu.com/doc/BOS/s/Tjwvysda9
+
+interface AccessControlDescription {
+    id?: string;
+    eid?: string;
+    service: string;
+    resource: string[];
+    region: string;
+    effect: 'Allow' | 'Deny';
+    permission: string[];
+}
+
 interface SessionTokenOptions {
     durationSeconds?: number;
-    acl?: string;
+    accessControlList: AccessControlDescription[];
     attachment?: string;
 }
 
@@ -26,27 +38,24 @@ interface SessionTokenResponse {
     userId: string;
 }
 
-export interface StsOptions {
-    region: string;
-    credentials: BceCredential;
-}
+export type StsOptions = RegionClientOptions;
 
 export class StsClient {
     private readonly http: Http;
 
-    constructor({region, credentials}: StsOptions) {
-        this.http = Http.fromRegionSupportedServiceId('sts', region, credentials);
+    constructor(options: StsOptions) {
+        this.http = Http.fromRegionSupportedServiceId('sts', options);
     }
 
-    async getSessionToken(options?: SessionTokenOptions) {
+    async getSessionToken(options: SessionTokenOptions) {
         const response = await this.http.json<SessionTokenResponse>(
             'POST',
             '/v1/sessionToken',
             {
-                params: {durationSeconds: options?.durationSeconds},
+                params: {durationSeconds: options.durationSeconds},
                 body: {
-                    acl: options?.acl,
-                    attachment: options?.attachment,
+                    accessControlList: options.accessControlList,
+                    attachment: options.attachment,
                 },
             }
         );

@@ -1,6 +1,6 @@
 import fs, {ReadStream} from 'node:fs';
-import {BceCredential} from './authorization.js';
 import {Http} from './http.js';
+import {RegionClientOptions} from './interface.js';
 
 // https://cloud.baidu.com/doc/BOS/s/Rjwvysdnp
 
@@ -47,18 +47,15 @@ export interface PutObjectOptions {
 
 export type ObjectBody = string | Blob | ArrayBuffer | ReadStream;
 
-export interface BosOptions {
-    region: string;
-    credentials: BceCredential;
-}
+export type BosOptions = RegionClientOptions;
 
 export class BosClient {
     private readonly hostBase: string;
     private readonly http: Http;
 
-    constructor({region, credentials}: BosOptions) {
-        this.hostBase = `${region}.bcebos.com`;
-        this.http = Http.fromEndpoint(this.hostBase, credentials);
+    constructor(options: BosOptions) {
+        this.hostBase = `${options.region}.bcebos.com`;
+        this.http = Http.fromEndpoint(this.hostBase, options);
     }
 
     async listObjects(bucketName: string, options?: ListObjectOptions) {

@@ -1,6 +1,7 @@
 import {Blob} from 'node:buffer';
 import {fromPairs} from 'ramda';
-import {Authorization, BceCredential} from './authorization.js';
+import {BceCredentialContext, RegionClientOptions} from './interface.js';
+import {Authorization} from './authorization.js';
 import {RequestError} from './error.js';
 
 const stringifyDate = (date: Date) => date.toISOString().replace(/\.\d+Z$/, 'Z');
@@ -65,24 +66,26 @@ export class Http {
     private readonly baseUrl: string;
     private readonly authorization: Authorization;
     private readonly host: string;
+    private readonly sessionToken: string | undefined;
 
-    private constructor(endpoint: string, credentials: BceCredential) {
+    private constructor(endpoint: string, context: BceCredentialContext) {
         const url = new URL(`https://${endpoint}`);
         this.host = url.host;
         this.baseUrl = url.origin;
-        this.authorization = new Authorization(credentials);
+        this.sessionToken = context.sessionToken;
+        this.authorization = new Authorization(context.credentials);
     }
 
-    static fromEndpoint(endpoint: string, credentials: BceCredential) {
-        return new Http(endpoint, credentials);
+    static fromEndpoint(endpoint: string, context: BceCredentialContext) {
+        return new Http(endpoint, context);
     }
 
-    static fromRegionSupportedServiceId(serviceId: string, region: string, credentials: BceCredential) {
-        return new Http(`${serviceId}.${region}.${BASE_DOMAIN}`, credentials);
+    static fromRegionSupportedServiceId(serviceId: string, context: RegionClientOptions) {
+        return new Http(`${serviceId}.${context.region}.${BASE_DOMAIN}`, context);
     }
 
-    static fromServiceId(serviceId: string, credentials: BceCredential) {
-        return new Http(`${serviceId}.${BASE_DOMAIN}`, credentials);
+    static fromServiceId(serviceId: string, context: RegionClientOptions) {
+        return new Http(`${serviceId}.${BASE_DOMAIN}`, context);
     }
 
     async json<T>(method: string, url: string, options: RequestOptions): Promise<ClientResponse<T>> {
@@ -116,45 +119,27 @@ export class Http {
     }
 
     private async request(method: string, url: string, options: RequestOptions) {
-        const {headers, params} = options;
+        const searchParams = constructSearchParams(options.params);
         const timestamp = stringifyDate(new Date());
-        const searchParams = constructSearchParams(params);
-        const authorization = this.authorization.authorize(
+        const headers = this.constructHeaders(options);
+        headers['x-bce-date'] = timestamp;
+        headers.authorization = this.authorization.authorize(
             {
                 method,
                 url,
+                headers,
                 params: searchParams && [...searchParams.entries()],
-                headers: {
-                    host: this.host,
-                    'x-bce-date': timestamp,
-                    ...options.headers,
-                },
             },
             {timestamp}
         );
-        const request: RequestInit = {
-            method,
-            headers: {
-                ...headers,
-                authorization,
-                'x-bce-date': timestamp,
-            },
-        };
-
-        if (isPlainObject(options.body)) {
-            request.body = JSON.stringify(options.body);
-            Object.assign(
-                request.headers!,
-                {'content-type': 'application/json'}
-            );
-        }
-        else if (options.body) {
-            request.body = options.body;
-        }
 
         const response = await fetch(
             this.baseUrl + url + (searchParams ? `?${searchParams}` : ''),
-            request
+            {
+                method,
+                headers,
+                body: isPlainObject(options.body) ? JSON.stringify(options.body) : (options.body ?? null),
+            }
         );
 
         const responseHeaders = fromPairs([...response.headers.entries()]);
@@ -165,5 +150,20 @@ export class Http {
 
         const body = await response.text();
         throw new RequestError(response.status, responseHeaders, body);
+    }
+
+    private constructHeaders(options: RequestOptions) {
+        const headers: Record<string, string> = {
+            // 允许覆盖`host`头，但`x-bce-date`永远是内部生成的，不然签名过不去
+            host: this.host,
+            ...options.headers,
+        };
+        if (this.sessionToken) {
+            headers['x-bce-security-token'] = this.sessionToken;
+        }
+        if (isPlainObject(options.body)) {
+            headers['content-type'] ??= 'application/json';
+        }
+        return headers;
     }
 }
