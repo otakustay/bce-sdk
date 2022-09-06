@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.10.0](https://github.com/otakustay/bce-sdk/compare/v0.9.2...v0.10.0) (2022-09-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* 使用Node原生的fetch函数
+
+### Features
+
+* 支持STS认证 ([7495311](https://github.com/otakustay/bce-sdk/commit/7495311fb1687caedbae25e60e7ce4b6d1a70fb9))
+
+
+* 使用Node原生的fetch函数 ([f40e20a](https://github.com/otakustay/bce-sdk/commit/f40e20a4fbfdc6324cd8521088bba2fa16c7f374))
+
 ### [0.9.2](https://github.com/otakustay/bce-sdk/compare/v0.9.1...v0.9.2) (2022-09-05)
 
 
