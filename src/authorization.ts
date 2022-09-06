@@ -1,4 +1,3 @@
-import crypto from 'node:crypto';
 import {BceCredential} from './interface.js';
 
 // https://cloud.baidu.com/doc/Reference/s/njwvz1yfu
@@ -69,10 +68,19 @@ const canonicalizeHeaders = (headers: Record<string, string>, headerNamesToSign 
     return result;
 };
 
-const hash = (key: string, data: string) => {
-    const mac = crypto.createHmac('sha256', key);
-    mac.update(data);
-    return mac.digest('hex');
+const hash = async (key: string, value: string) => {
+    const encoder = new TextEncoder();
+    const cryptoKey = await crypto.subtle.importKey(
+        'raw',
+        encoder.encode(key),
+        {name: 'HMAC', hash: 'SHA-256'},
+        false,
+        ['sign']
+    );
+    const signature = await crypto.subtle.sign('HMAC', cryptoKey, encoder.encode(value));
+    // const buffer = await crypto.subtle.digest('SHA-256', encoder.encode(value));
+    const array = [...new Uint8Array(signature)];
+    return array.map(v => v.toString(16).padStart(2, '0')).join('');
 };
 
 interface Options {
@@ -93,12 +101,12 @@ export class Authorization {
     constructor(private readonly credentials: BceCredential) {}
 
     // NOTE: 百度云V1签名算法，你改一个字都会跑不过去你信不信
-    authorize(request: RequestInfo, options: Options): string {
-        const context = this.createContext(request, options);
+    async authorize(request: RequestInfo, options: Options): Promise<string> {
+        const context = await this.createContext(request, options);
         return `${context.authStringPrefix}/${context.signedHeaderNames.join(';')}/${context.signature}`;
     }
 
-    private createContext(request: RequestInfo, options: Options): SignatureContext {
+    private async createContext(request: RequestInfo, options: Options): Promise<SignatureContext> {
         const {signedHeaderNames, canonicalizedHeaders} = canonicalizeHeaders(
             request.headers,
             options.headerNamesToSign
@@ -113,8 +121,8 @@ export class Authorization {
         const authStringPrefix = `bce-auth-v1/${this.credentials.ak}/${options.timestamp}/${
             options.expireInSeconds || 1800
         }`;
-        const signingKey = hash(this.credentials.sk, authStringPrefix);
-        const signature = hash(signingKey, canonicalRequest);
+        const signingKey = await hash(this.credentials.sk, authStringPrefix);
+        const signature = await hash(signingKey, canonicalRequest);
         return {
             canonicalRequest,
             signedHeaderNames,

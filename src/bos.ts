@@ -1,4 +1,4 @@
-import fs, {ReadStream} from 'node:fs';
+import type {ReadStream} from 'node:fs';
 import {Http} from './http.js';
 import {RegionClientOptions} from './interface.js';
 
@@ -121,6 +121,7 @@ export class BosClient {
     }
 
     async putObjectFromFile(bucketName: string, key: string, file: string, options?: PutObjectOptions) {
+        const fs = await import('node:fs');
         const stream = fs.createReadStream(file);
         const response = await this.putObject(bucketName, key, stream, options);
         return response;

@@ -1,4 +1,3 @@
-import {Blob} from 'node:buffer';
 import {fromPairs} from 'ramda';
 import {BceCredentialContext, RegionClientOptions} from './interface.js';
 import {Authorization} from './authorization.js';
@@ -123,7 +122,7 @@ export class Http {
         const timestamp = stringifyDate(new Date());
         const headers = this.constructHeaders(options);
         headers['x-bce-date'] = timestamp;
-        headers.authorization = this.authorization.authorize(
+        headers.authorization = await this.authorization.authorize(
             {
                 method,
                 url,
