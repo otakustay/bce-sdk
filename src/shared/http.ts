@@ -21,6 +21,10 @@ const isPlainObject = (value: any): value is Record<string, any> => {
 
 const BASE_DOMAIN = 'baidubce.com';
 
+interface HttpContext {
+    headers?: Record<string, string>;
+}
+
 type SearchParamsDict = Record<string, string | number | undefined | null | undefined>;
 
 export interface RequestOptions {
@@ -62,16 +66,19 @@ const constructSearchParams = (dict: URLSearchParams | SearchParamsDict | undefi
 };
 
 export class Http {
+    private readonly endpoint: string;
+    private readonly context: BceCredentialContext;
     private readonly baseUrl: string;
     private readonly authorization: Authorization;
-    private readonly host: string;
     private readonly sessionToken: string | undefined;
+    private readonly headers: Record<string, string>;
 
-    private constructor(endpoint: string, context: BceCredentialContext) {
+    private constructor(endpoint: string, context: BceCredentialContext, httpContext?: HttpContext) {
         const url = new URL(`https://${endpoint}`);
-        this.host = url.host;
+        this.endpoint = endpoint;
+        this.context = context;
         this.baseUrl = url.origin;
-        this.sessionToken = context.sessionToken;
+        this.headers = {host: url.host, ...httpContext?.headers};
         this.authorization = new Authorization(context.credentials);
     }
 
@@ -87,27 +94,31 @@ export class Http {
         return new Http(`${serviceId}.${BASE_DOMAIN}`, context);
     }
 
-    async json<T>(method: string, url: string, options: RequestOptions): Promise<ClientResponse<T>> {
+    withHeaders(headers: Record<string, string>) {
+        return new Http(this.endpoint, this.context, {headers});
+    }
+
+    async json<T>(method: string, url: string, options?: RequestOptions): Promise<ClientResponse<T>> {
         const {headers, response} = await this.request(method, url, options);
         return {headers, body: await response.json() as T};
     }
 
-    async text(method: string, url: string, options: RequestOptions): Promise<ClientResponse<string>> {
+    async text(method: string, url: string, options?: RequestOptions): Promise<ClientResponse<string>> {
         const {headers, response} = await this.request(method, url, options);
         return {headers, body: await response.text()};
     }
 
-    async noContent(method: string, url: string, options: RequestOptions): Promise<ClientResponseNoContent> {
+    async noContent(method: string, url: string, options?: RequestOptions): Promise<ClientResponseNoContent> {
         const {headers} = await this.request(method, url, options);
         return {headers};
     }
 
-    async blob(method: string, url: string, options: RequestOptions): Promise<ClientResponse<Blob>> {
+    async blob(method: string, url: string, options?: RequestOptions): Promise<ClientResponse<Blob>> {
         const {headers, response} = await this.request(method, url, options);
         return {headers, body: await response.blob()};
     }
 
-    async stream(method: string, url: string, options: RequestOptions): Promise<ClientResponse<ResponseStream>> {
+    async stream(method: string, url: string, options?: RequestOptions): Promise<ClientResponse<ResponseStream>> {
         const {headers, response} = await this.request(method, url, options);
 
         if (response.body) {
@@ -117,8 +128,8 @@ export class Http {
         throw new Error(`No stream body in response of ${method} ${url}`);
     }
 
-    private async request(method: string, url: string, options: RequestOptions) {
-        const searchParams = constructSearchParams(options.params);
+    private async request(method: string, url: string, options?: RequestOptions) {
+        const searchParams = constructSearchParams(options?.params);
         const timestamp = stringifyDate(new Date());
         const headers = this.constructHeaders(options);
         headers['x-bce-date'] = timestamp;
@@ -137,7 +148,7 @@ export class Http {
             {
                 method,
                 headers,
-                body: isPlainObject(options.body) ? JSON.stringify(options.body) : (options.body ?? null),
+                body: isPlainObject(options?.body) ? JSON.stringify(options?.body) : (options?.body ?? null),
             }
         );
 
@@ -151,16 +162,16 @@ export class Http {
         throw new RequestError(response.status, responseHeaders, body);
     }
 
-    private constructHeaders(options: RequestOptions) {
+    private constructHeaders(options: RequestOptions | undefined) {
         const headers: Record<string, string> = {
             // 允许覆盖`host`头，但`x-bce-date`永远是内部生成的，不然签名过不去
-            host: this.host,
-            ...options.headers,
+            ...this.headers,
+            ...options?.headers,
         };
         if (this.sessionToken) {
             headers['x-bce-security-token'] = this.sessionToken;
         }
-        if (isPlainObject(options.body)) {
+        if (isPlainObject(options?.body)) {
             headers['content-type'] ??= 'application/json';
         }
         return headers;

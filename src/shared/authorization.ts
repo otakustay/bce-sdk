@@ -1,3 +1,4 @@
+import crypto from 'node:crypto';
 import {BceCredential} from './interface.js';
 
 // https://cloud.baidu.com/doc/Reference/s/njwvz1yfu
