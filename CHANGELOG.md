@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.12.0](https://github.com/otakustay/bce-sdk/compare/v0.11.0...v0.12.0) (2022-09-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* 更新license字段为Apache-2.0
+
+* 更新license字段为Apache-2.0 ([ea49c35](https://github.com/otakustay/bce-sdk/commit/ea49c3500aab17244d580faf22be811fcebd3968))
+
 ### [0.11.1](https://github.com/otakustay/bce-sdk/compare/v0.11.0...v0.11.1) (2022-09-07)
 
 ## [0.11.0](https://github.com/otakustay/bce-sdk/compare/v0.10.1...v0.11.0) (2022-09-07)
