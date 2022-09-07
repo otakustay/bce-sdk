@@ -1,5 +1,4 @@
-import {Http} from './http.js';
-import {RegionClientOptions} from './interface.js';
+import {RegionClientOptions, Http} from '../shared/index.js';
 
 // https://cloud.baidu.com/doc/BLS/s/Ck8qtng1c
 
