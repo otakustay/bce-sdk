@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.11.0](https://github.com/otakustay/bce-sdk/compare/v0.10.1...v0.11.0) (2022-09-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* **bos:** 放弃对浏览器的兼容
+
+### Features
+
+* **bos:** 支持绑定bucket和object调用API ([7d1d4e0](https://github.com/otakustay/bce-sdk/commit/7d1d4e08c28b04b23353ea2f76cc1b057384a8ce))
+* 支持浏览器环境使用 ([bf0940a](https://github.com/otakustay/bce-sdk/commit/bf0940aa237eb3cc1e36967d28a9cf2d5bb03e6a))
+
 ### [0.10.1](https://github.com/otakustay/bce-sdk/compare/v0.10.0...v0.10.1) (2022-09-06)
 
 ## [0.10.0](https://github.com/otakustay/bce-sdk/compare/v0.9.2...v0.10.0) (2022-09-06)
