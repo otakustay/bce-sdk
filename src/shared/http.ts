@@ -1,4 +1,3 @@
-import {fromPairs} from 'ramda';
 import {BceCredentialContext, RegionClientOptions} from './interface.js';
 import {Authorization} from './authorization.js';
 import {RequestError} from './error.js';
@@ -43,6 +42,14 @@ type ResponseStream = ReadableStream<Uint8Array>;
 export interface ClientResponseNoContent {
     headers: Record<string, string>;
 }
+
+const entriesToRecord = <T>(entries: Array<[string, T]>) => {
+    const record: Record<string, T> = {};
+    for (const [key, value] of entries) {
+        record[key] = value;
+    }
+    return record;
+};
 
 const constructSearchParams = (dict: URLSearchParams | SearchParamsDict | undefined) => {
     if (!dict) {
@@ -152,7 +159,7 @@ export class Http {
             }
         );
 
-        const responseHeaders = fromPairs([...response.headers.entries()]);
+        const responseHeaders = entriesToRecord([...response.headers.entries()]);
 
         if (response.ok) {
             return {headers: responseHeaders, response};
