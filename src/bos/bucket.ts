@@ -1,5 +1,5 @@
 import {Http} from '../shared/index.js';
-import {BosObjectClient} from './object.js';
+import {BosObjectClient, ObjectBody, PutObjectOptions} from './object.js';
 
 export interface ListObjectOptions {
     delimiter?: string;
@@ -63,5 +63,29 @@ export class BosBucketClient {
             }
         );
         return response;
+    }
+
+    async getObject(key: string) {
+        return this.withObject(key).get();
+    }
+
+    async getObjectAsBlob(key: string) {
+        return this.withObject(key).getAsBlob();
+    }
+
+    async getObjectAsStream(key: string) {
+        return this.withObject(key).getAsStream();
+    }
+
+    async putObject(key: string, body: ObjectBody, options?: PutObjectOptions) {
+        return this.withObject(key).put(body, options);
+    }
+
+    async putObjectFromFile(key: string, file: string, options?: PutObjectOptions) {
+        return this.withObject(key).putFromFile(file, options);
+    }
+
+    async deleteObject(key: string) {
+        return this.withObject(key).delete();
     }
 }
