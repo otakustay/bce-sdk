@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.12.1](https://github.com/otakustay/bce-sdk/compare/v0.12.0...v0.12.1) (2022-09-14)
+
+
+### Bug Fixes
+
+* **bos:** 导出bucket和object的client类型 ([32fb023](https://github.com/otakustay/bce-sdk/commit/32fb023e49c0a246c3da487c24fa9d144cf981b6))
+
 ## [0.12.0](https://github.com/otakustay/bce-sdk/compare/v0.11.0...v0.12.0) (2022-09-07)
 
 
