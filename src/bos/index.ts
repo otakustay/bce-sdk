@@ -2,8 +2,15 @@ import {RegionClientOptions, Http} from '../shared/index.js';
 import {BosBucketClient, ListObjectOptions} from './bucket.js';
 import {ObjectBody, PutObjectOptions} from './object.js';
 
-export type {ObjectBody, PutObjectOptions} from './object.js';
-export type {CommonPrefix, ListObjectOptions, ListObjectResponse, ObjectContent, ObjectOwner} from './bucket.js';
+export type {ObjectBody, PutObjectOptions, BosObjectClient} from './object.js';
+export type {
+    CommonPrefix,
+    ListObjectOptions,
+    ListObjectResponse,
+    ObjectContent,
+    ObjectOwner,
+    BosBucketClient,
+} from './bucket.js';
 
 // https://cloud.baidu.com/doc/BOS/s/Rjwvysdnp
 
