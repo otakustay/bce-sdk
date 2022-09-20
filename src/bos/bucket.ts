@@ -69,6 +69,10 @@ export class BosBucketClient {
         return this.withObject(key).get();
     }
 
+    async getObjectMeta(key: string) {
+        return this.withObject(key).getMeta();
+    }
+
     async getObjectAsBlob(key: string) {
         return this.withObject(key).getAsBlob();
     }

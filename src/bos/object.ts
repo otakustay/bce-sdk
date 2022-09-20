@@ -22,6 +22,11 @@ export class BosObjectClient {
         return response;
     }
 
+    async getMeta() {
+        const response = await this.http.noContent('HEAD', `/${this.objectKey}`);
+        return response;
+    }
+
     async getAsBlob() {
         const response = await this.http.blob('GET', `/${this.objectKey}`);
         return response;
