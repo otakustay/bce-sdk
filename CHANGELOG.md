@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.12.2](https://github.com/otakustay/bce-sdk/compare/v0.12.1...v0.12.2) (2022-09-20)
+
+
+### Features
+
+* **bos:** 支持getObjectMeta ([#2](https://github.com/otakustay/bce-sdk/issues/2)) ([36408a0](https://github.com/otakustay/bce-sdk/commit/36408a051653a9703a762c2b7dd2da17d60dea0a))
+* **bos:** 支持在bucket层级操作object ([00f64b4](https://github.com/otakustay/bce-sdk/commit/00f64b48d54aa75e45e11058aa412b21c509090e))
+
 ### [0.12.1](https://github.com/otakustay/bce-sdk/compare/v0.12.0...v0.12.1) (2022-09-14)
 
 
