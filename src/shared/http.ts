@@ -77,7 +77,6 @@ export class Http {
     private readonly context: BceCredentialContext;
     private readonly baseUrl: string;
     private readonly authorization: Authorization;
-    private readonly sessionToken: string | undefined;
     private readonly headers: Record<string, string>;
 
     private constructor(endpoint: string, context: BceCredentialContext, httpContext?: HttpContext) {
@@ -175,8 +174,8 @@ export class Http {
             ...this.headers,
             ...options?.headers,
         };
-        if (this.sessionToken) {
-            headers['x-bce-security-token'] = this.sessionToken;
+        if (this.context.sessionToken) {
+            headers['x-bce-security-token'] = this.context.sessionToken;
         }
         if (isPlainObject(options?.body)) {
             headers['content-type'] ??= 'application/json';
