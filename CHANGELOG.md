@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.12.3](https://github.com/otakustay/bce-sdk/compare/v0.12.2...v0.12.3) (2022-12-08)
+
+
+### Bug Fixes
+
+* **http:** 错误地使用了sessionToken ([1195947](https://github.com/otakustay/bce-sdk/commit/1195947e0e0afd8341829c3be76d5a2a3effc2cc))
+
 ### [0.12.2](https://github.com/otakustay/bce-sdk/compare/v0.12.1...v0.12.2) (2022-09-20)
 
 
