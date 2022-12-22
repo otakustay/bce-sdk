@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.12.4](https://github.com/otakustay/bce-sdk/compare/v0.12.3...v0.12.4) (2022-12-22)
+
+
+### Features
+
+* **bls:** 支持V2版本queryLogRecord接口 ([3a9119f](https://github.com/otakustay/bce-sdk/commit/3a9119f91e026e9c6a2f6c99b4af7bdf9689bd69))
+
 ### [0.12.3](https://github.com/otakustay/bce-sdk/compare/v0.12.2...v0.12.3) (2022-12-08)
 
 

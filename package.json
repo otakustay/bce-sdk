@@ -1,6 +1,6 @@
 {
   "name": "@otakustay/bce-sdk",
-  "version": "0.12.3",
+  "version": "0.12.4",
   "description": "Yet another Baidu Cloud SDK",
   "type": "module",
   "exports": {
