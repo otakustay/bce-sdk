@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import {Readable} from 'node:stream';
 import {Http} from '../shared/index.js';
+import {normalizeUrl} from '../utils/string.js';
 
 export interface PutObjectOptions {
     headers?: Record<string, string>;
@@ -14,7 +15,7 @@ export class BosObjectClient {
 
     constructor(http: Http, objectKey: string) {
         this.http = http;
-        this.objectKey = objectKey;
+        this.objectKey = normalizeUrl(objectKey, false);
     }
 
     async get() {
