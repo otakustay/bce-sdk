@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.12.5](https://github.com/otakustay/bce-sdk/compare/v0.12.4...v0.12.5) (2023-01-09)
+
+
+### Bug Fixes
+
+* **bos:** 修复key中包含特殊字符时的逻辑 ([fd69fb2](https://github.com/otakustay/bce-sdk/commit/fd69fb28d01b5f107e985b77fa5b3efd2b395279))
+
 ### [0.12.4](https://github.com/otakustay/bce-sdk/compare/v0.12.3...v0.12.4) (2022-12-22)
 
 
