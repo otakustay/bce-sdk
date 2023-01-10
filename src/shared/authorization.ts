@@ -114,7 +114,7 @@ export class Authorization {
         );
         const canonicalRequestParts = [
             request.method,
-            request.url,
+            encodeURI(request.url),
             canonicalizeSearchParams(request.params),
             canonicalizedHeaders,
         ];
