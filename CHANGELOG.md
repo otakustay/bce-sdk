@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.12.7](https://github.com/otakustay/bce-sdk/compare/v0.12.6...v0.12.7) (2023-01-10)
+
+
+### Bug Fixes
+
+* **bos:** 修复签名算法与BOS的key处理冲突 ([fdaee25](https://github.com/otakustay/bce-sdk/commit/fdaee25a86d8a69e0ba82530f41e90aac39302dc))
+
 ### [0.12.6](https://github.com/otakustay/bce-sdk/compare/v0.12.5...v0.12.6) (2023-01-10)
 
 
