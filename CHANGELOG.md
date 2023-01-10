@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.12.6](https://github.com/otakustay/bce-sdk/compare/v0.12.5...v0.12.6) (2023-01-10)
+
+
+### Bug Fixes
+
+* **auth:** 修复URL中有中文的签名算法 ([75b023a](https://github.com/otakustay/bce-sdk/commit/75b023a33e4aa2a26d151d5eb4832fa170909a0f))
+
 ### [0.12.5](https://github.com/otakustay/bce-sdk/compare/v0.12.4...v0.12.5) (2023-01-09)
 
 
