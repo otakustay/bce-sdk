@@ -2,7 +2,7 @@ import {RegionClientOptions, Http} from '../shared/index.js';
 
 // https://cloud.baidu.com/doc/IAM/s/Qjwvyc8ov
 
-interface AssumeRoleOptions {
+export interface AssumeRoleOptions {
     accountId: string;
     roleName: string;
     userId?: string;
@@ -12,7 +12,7 @@ interface AssumeRoleOptions {
 
 // https://cloud.baidu.com/doc/BOS/s/Tjwvysda9
 
-interface AccessControlDescription {
+export interface AccessControlDescription {
     id?: string;
     eid?: string;
     service: string;
@@ -22,13 +22,13 @@ interface AccessControlDescription {
     permission: string[];
 }
 
-interface SessionTokenOptions {
+export interface SessionTokenOptions {
     durationSeconds?: number;
     accessControlList: AccessControlDescription[];
     attachment?: string;
 }
 
-interface SessionTokenResponse {
+export interface SessionTokenResponse {
     accessKeyId: string;
     secretAccessKey: string;
     sessionToken: string;
