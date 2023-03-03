@@ -659,7 +659,7 @@ __metadata:
     "@ecomfe/eslint-config": ^7.4.0
     "@types/babel__core": ^7
     "@types/eslint": ^8
-    "@types/node": ^18.7.14
+    "@types/node": 16.0.0
     "@typescript-eslint/eslint-plugin": ^5.36.1
     "@typescript-eslint/parser": ^5.36.1
     eslint: ^8.23.0
@@ -770,17 +770,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:16.0.0":
+  version: 16.0.0
+  resolution: "@types/node@npm:16.0.0::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40types%2Fnode%2F-%2Fnode-16.0.0.tgz"
+  checksum: 57e5731ba8d64d9a6434c69f1153186b7fc1b0f58ae54f3eb8c32cd122e87e9aca35947f62e92e1902027994dac97b5bff7cce4d9c56cb319f07f694fe55d012
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:^14.0.0":
   version: 14.18.27
   resolution: "@types/node@npm:14.18.27::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40types%2Fnode%2F-%2Fnode-14.18.27.tgz"
   checksum: b5ed55caf950ae0a49dbf39a349ca4875b2af6c6ea5a90e733c151226f79ead6c23f61908491b0b96063c21ba2f1ab818a0c3edd59b8cc45c024a30d4e478ec6
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^18.7.14":
-  version: 18.7.15
-  resolution: "@types/node@npm:18.7.15::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40types%2Fnode%2F-%2Fnode-18.7.15.tgz"
-  checksum: 1435fc7fe44744467a3ba8ace646455be228516530dbb3db64a03cca6abcfdc5ba2e48a3eafc71f25f836d2ca871132361c58a5e760237a53674cb09151147d9
   languageName: node
   linkType: hard
 

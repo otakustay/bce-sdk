@@ -70,18 +70,9 @@ const canonicalizeHeaders = (headers: Record<string, string>, headerNamesToSign 
 };
 
 const hash = async (key: string, value: string) => {
-    const encoder = new TextEncoder();
-    const cryptoKey = await crypto.subtle.importKey(
-        'raw',
-        encoder.encode(key),
-        {name: 'HMAC', hash: 'SHA-256'},
-        false,
-        ['sign']
-    );
-    const signature = await crypto.subtle.sign('HMAC', cryptoKey, encoder.encode(value));
-    // const buffer = await crypto.subtle.digest('SHA-256', encoder.encode(value));
-    const array = [...new Uint8Array(signature)];
-    return array.map(v => v.toString(16).padStart(2, '0')).join('');
+    const mac = crypto.createHmac('sha256', key);
+    mac.update(value);
+    return mac.digest('hex');
 };
 
 interface Options {
