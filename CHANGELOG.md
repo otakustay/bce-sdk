@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.12.8](https://github.com/otakustay/bce-sdk/compare/v0.12.7...v0.12.8) (2023-03-03)
+
+
+### Features
+
+* **sts:** 导出更多STS的类型 ([26f42f6](https://github.com/otakustay/bce-sdk/commit/26f42f6b948886e4370ccd6705e0b6a9bb7fea30))
+* 兼容NodeJS 16版本 ([2ca3e66](https://github.com/otakustay/bce-sdk/commit/2ca3e666df746a389b14fc21fb7813c4370e46c5))
+
 ### [0.12.7](https://github.com/otakustay/bce-sdk/compare/v0.12.6...v0.12.7) (2023-01-10)
 
 
