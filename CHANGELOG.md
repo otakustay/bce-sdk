@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.12.10](https://github.com/otakustay/bce-sdk/compare/v0.12.8...v0.12.10) (2023-05-06)
+
+
+### Bug Fixes
+
+* 兼容NodeJS 20要求duplex参数 ([#4](https://github.com/otakustay/bce-sdk/issues/4)) ([7d2a320](https://github.com/otakustay/bce-sdk/commit/7d2a3206f80bfbb50b5f3fc14d21281d020b4e71))
+
 ### [0.12.8](https://github.com/otakustay/bce-sdk/compare/v0.12.7...v0.12.8) (2023-03-03)
 
 
