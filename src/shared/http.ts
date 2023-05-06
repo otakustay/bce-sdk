@@ -158,7 +158,7 @@ export class Http {
 
         const response = await fetch(
             this.baseUrl + url + (searchParams ? `?${searchParams}` : ''),
-            requestInit,
+            requestInit
         );
 
         const responseHeaders = entriesToRecord([...response.headers.entries()]);
