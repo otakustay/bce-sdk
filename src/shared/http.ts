@@ -149,13 +149,16 @@ export class Http {
             {timestamp}
         );
 
+        const requestInit = {
+            method,
+            headers,
+            body: isPlainObject(options?.body) ? JSON.stringify(options?.body) : (options?.body ?? null),
+            duplex: 'half',
+        };
+
         const response = await fetch(
             this.baseUrl + url + (searchParams ? `?${searchParams}` : ''),
-            {
-                method,
-                headers,
-                body: isPlainObject(options?.body) ? JSON.stringify(options?.body) : (options?.body ?? null),
-            }
+            requestInit,
         );
 
         const responseHeaders = entriesToRecord([...response.headers.entries()]);
