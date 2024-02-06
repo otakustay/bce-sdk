@@ -2,7 +2,6 @@
     "extends": "./tsconfig.json",
     "compilerOptions": {
         "noEmit": false,
-        "skipLibCheck": true,
         "declaration": true,
         "rootDir": "src",
         "outDir": "es",

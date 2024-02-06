@@ -41,23 +41,23 @@
     "url": "https://github.com/otakustay/bce-sdk/issues"
   },
   "homepage": "https://github.com/otakustay/bce-sdk#readme",
-  "packageManager": "yarn@3.2.3",
   "devDependencies": {
-    "@babel/core": "^7.19.0",
-    "@babel/eslint-parser": "^7.18.9",
-    "@babel/eslint-plugin": "^7.18.10",
-    "@commitlint/cli": "^17.1.2",
-    "@commitlint/config-conventional": "^17.1.0",
-    "@ecomfe/eslint-config": "^7.4.0",
-    "@types/babel__core": "^7",
-    "@types/eslint": "^8",
-    "@types/node": "16.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.36.1",
-    "@typescript-eslint/parser": "^5.36.1",
-    "eslint": "^8.23.0",
-    "husky": "^8.0.1",
+    "@babel/core": "^7.23.9",
+    "@babel/eslint-parser": "^7.23.10",
+    "@babel/eslint-plugin": "^7.23.5",
+    "@commitlint/cli": "^18.6.0",
+    "@commitlint/config-conventional": "^18.6.0",
+    "@ecomfe/eslint-config": "^8.0.0",
+    "@types/babel__core": "^7.20.5",
+    "@types/eslint": "^8.56.2",
+    "@types/node": "16.18.79",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "eslint": "^8.56.0",
+    "husky": "^9.0.10",
     "standard-version": "^9.5.0",
-    "ts-node": "^10.9.1",
-    "typescript": "next"
-  }
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "packageManager": "yarn@4.1.0+sha256.81a00df816059803e6b5148acf03ce313cad36b7f6e5af6efa040a15981a6ffb"
 }

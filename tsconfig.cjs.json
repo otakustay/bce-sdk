@@ -1,9 +1,7 @@
 {
     "extends": "./tsconfig.json",
     "compilerOptions": {
-        "module": "CommonJS",
         "noEmit": false,
-        "skipLibCheck": true,
         "declaration": true,
         "rootDir": "src",
         "outDir": "cjs",
