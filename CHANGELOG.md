@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.12.12](https://github.com/otakustay/bce-sdk/compare/v0.12.11...v0.12.12) (2024-02-06)
+
+
+### Bug Fixes
+
+* 修复对BOS对象处理时的URL错误 ([3c17ef2](https://github.com/otakustay/bce-sdk/commit/3c17ef287f5395396012cceaa0f4e869ffde4f68))
+
 ### [0.12.11](https://github.com/otakustay/bce-sdk/compare/v0.12.10...v0.12.11) (2024-02-06)
 
 
