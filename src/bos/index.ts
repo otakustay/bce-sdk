@@ -17,16 +17,14 @@ export type {
 export type BosOptions = RegionClientOptions;
 
 export class BosClient {
-    protected readonly hostBase: string;
     protected readonly http: Http;
 
     constructor(options: BosOptions) {
-        this.hostBase = `${options.region}.bcebos.com`;
-        this.http = Http.fromEndpoint(this.hostBase, options);
+        this.http = Http.fromEndpoint(`${options.region}.bcebos.com`, options);
     }
 
     withBucket(bucketName: string) {
-        return new BosBucketClient(this.http, this.hostBase, bucketName);
+        return new BosBucketClient(this.http, bucketName);
     }
 
     withObject(bucketName: string, objectKey: string) {
