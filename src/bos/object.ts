@@ -11,30 +11,30 @@ export type ObjectBody = string | Blob | ArrayBuffer | Readable;
 
 export class BosObjectClient {
     private readonly http: Http;
-    private readonly objectKey: string;
+    private readonly objectUrl: string;
 
-    constructor(http: Http, objectKey: string) {
+    constructor(http: Http, bucketName: string, objectKey: string) {
         this.http = http;
-        this.objectKey = normalizeUrl(objectKey, false);
+        this.objectUrl = `/v1/${bucketName}/${normalizeUrl(objectKey, false)}`;
     }
 
     async get() {
-        const response = await this.http.text('GET', `/${this.objectKey}`);
+        const response = await this.http.text('GET', this.objectUrl);
         return response;
     }
 
     async getMeta() {
-        const response = await this.http.noContent('HEAD', `/${this.objectKey}`);
+        const response = await this.http.noContent('HEAD', this.objectUrl);
         return response;
     }
 
     async getAsBlob() {
-        const response = await this.http.blob('GET', `/${this.objectKey}`);
+        const response = await this.http.blob('GET', this.objectUrl);
         return response;
     }
 
     async getAsStream() {
-        const response = await this.http.stream('GET', `/${this.objectKey}`);
+        const response = await this.http.stream('GET', this.objectUrl);
         return {
             headers: response.headers,
             // @ts-expect-error 都是`WebStream`，只是Node的类型不兼容，实际是能用的
@@ -45,7 +45,7 @@ export class BosObjectClient {
     async put(body: ObjectBody, options?: PutObjectOptions) {
         const response = await this.http.noContent(
             'PUT',
-            `/${this.objectKey}`,
+            this.objectUrl,
             {
                 body,
                 headers: {
@@ -63,7 +63,7 @@ export class BosObjectClient {
     }
 
     async delete() {
-        const response = await this.http.noContent('DELETE', `/${this.objectKey}`);
+        const response = await this.http.noContent('DELETE', this.objectUrl);
         return response;
     }
 }
