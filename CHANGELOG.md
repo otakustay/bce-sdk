@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.12.11](https://github.com/otakustay/bce-sdk/compare/v0.12.10...v0.12.11) (2024-02-06)
+
+
+### Bug Fixes
+
+* 更新BOS的请求地址解决认证失败问题 ([f784efc](https://github.com/otakustay/bce-sdk/commit/f784efc4203899198dbb049a189afc29ff226c47))
+
 ### [0.12.10](https://github.com/otakustay/bce-sdk/compare/v0.12.8...v0.12.10) (2023-05-06)
 
 
