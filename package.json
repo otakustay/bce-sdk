@@ -7,7 +7,8 @@
     ".": "./dist/shared/index.js",
     "./bos": "./dist/bos/index.js",
     "./bls": "./dist/bls/index.js",
-    "./sts": "./dist/sts/index.js"
+    "./sts": "./dist/sts/index.js",
+    "./cdn": "./dist/cdn/index.js"
   },
   "engines": {
     "node": ">= 24"

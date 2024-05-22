@@ -57,3 +57,5 @@ console.log(response.body.contents);
 | @otakustay/bce-sdk/bos | BosClient | deleteObject         | https://cloud.baidu.com/doc/BOS/s/bkc5tsslq |
 | @otakustay/bce-sdk/sts | StsClient | getSessionToken      | https://cloud.baidu.com/doc/IAM/s/Qjwvyc8ov |
 | @otakustay/bce-sdk/sts | StsClient | assumeRole           | https://cloud.baidu.com/doc/IAM/s/Qjwvyc8ov |
+| @otakustay/bce-sdk/cdn | CdnClient | prefetch             | https://cloud.baidu.com/doc/CDN/s/Rjwvyf0ff |
+| @otakustay/bce-sdk/cdn | CdnClient | purge                | https://cloud.baidu.com/doc/CDN/s/ijwvyeyyj |
