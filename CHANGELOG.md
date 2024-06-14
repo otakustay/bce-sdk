@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.12.13](https://github.com/otakustay/bce-sdk/compare/v0.12.12...v0.12.13) (2024-06-14)
+
+
+### Bug Fixes
+
+* 修复CommonJS的构建产出 ([58a8fdd](https://github.com/otakustay/bce-sdk/commit/58a8fddb6f4d3be155bdbb9176190ec6969fd67c))
+
 ### [0.12.12](https://github.com/otakustay/bce-sdk/compare/v0.12.11...v0.12.12) (2024-02-06)
 
 
