@@ -7,6 +7,7 @@ export {
     RequestOptions,
     RequestError,
     isRequestError,
+    Http,
 } from './shared/index.js';
 export * from './bls/index.js';
 export * from './bos/index.js';
