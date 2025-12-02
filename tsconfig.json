@@ -1,16 +1,17 @@
 {
-    "compilerOptions": {
-        "module": "NodeNext",
-        "target": "ES2020",
-        "allowJs": false,
-        "esModuleInterop": true,
-        "moduleResolution": "NodeNext",
-        "strict": true,
-        "noFallthroughCasesInSwitch": true,
-        "skipLibCheck": true,
-        "noEmit": true,
-        "declaration": false,
-        "exactOptionalPropertyTypes": true
-    },
-    "include": ["src", "*.ts"]
+  "compilerOptions": {
+    "module": "NodeNext",
+    "target": "ES2024",
+    "allowJs": false,
+    "esModuleInterop": true,
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "verbatimModuleSyntax": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "declaration": false,
+    "exactOptionalPropertyTypes": true
+  },
+  "include": ["src", "*.ts"]
 }

@@ -1,5 +1,6 @@
-import {Http} from '../shared/index.js';
-import {BosObjectClient, ObjectBody, PutObjectOptions} from './object.js';
+import type {Http} from '../shared/index.js';
+import {BosObjectClient} from './object.js';
+import type { ObjectBody, PutObjectOptions} from './object.js';
 
 export interface ListObjectOptions {
     delimiter?: string;

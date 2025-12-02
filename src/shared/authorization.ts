@@ -1,5 +1,5 @@
 import crypto from 'node:crypto';
-import {BceCredential} from './interface.js';
+import type {BceCredential} from './interface.js';
 
 // https://cloud.baidu.com/doc/Reference/s/njwvz1yfu
 
@@ -19,7 +19,7 @@ const NORMALIZE_MAP: Record<string, string> = {
 };
 
 const normalize = (value: string) =>
-    encodeURIComponent(value).replace(/[!'()*]/g, v => NORMALIZE_MAP[v]);
+    encodeURIComponent(value).replaceAll(/[!'()*]/g, v => NORMALIZE_MAP[v]);
 
 const canonicalizeSearchParams = (params: Array<[string, string]> | null) => {
     if (!params) {
@@ -32,7 +32,7 @@ const canonicalizeSearchParams = (params: Array<[string, string]> | null) => {
         }
         return `${key}=${normalize(value)}`;
     };
-    return params.flatMap(canonicalize).sort().join('&');
+    return params.flatMap(canonicalize).toSorted().join('&');
 };
 
 const DEFAULT_HEADERS_TO_SIGN = ['host', 'content-md5', 'content-length', 'content-type'];
@@ -64,7 +64,7 @@ const canonicalizeHeaders = (headers: Record<string, string>, headerNamesToSign 
     );
     const result: CanonicalizeHeadersResult = {
         signedHeaderNames,
-        canonicalizedHeaders: canonicalizedHeaders.sort().join('\n'),
+        canonicalizedHeaders: canonicalizedHeaders.toSorted().join('\n'),
     };
     return result;
 };

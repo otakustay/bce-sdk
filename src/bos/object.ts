@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import {Readable} from 'node:stream';
-import {Http} from '../shared/index.js';
+import type {Http} from '../shared/index.js';
 import {normalizeUrl} from '../utils/string.js';
 
 export interface PutObjectOptions {

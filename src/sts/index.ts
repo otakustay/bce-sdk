@@ -1,4 +1,5 @@
-import {RegionClientOptions, Http} from '../shared/index.js';
+import type {RegionClientOptions} from '../shared/index.js';
+import { Http} from '../shared/index.js';
 
 // https://cloud.baidu.com/doc/IAM/s/Qjwvyc8ov
 
@@ -66,8 +67,12 @@ export class StsClient {
         params.set('assumeRole', '');
         params.set('accountId', options.accountId);
         params.set('roleName', options.roleName);
-        options.userId && params.set('userId', options.userId);
-        options.durationSeconds && params.set('durationSeconds', options.durationSeconds.toString());
+        if (options.userId) {
+            params.set('userId', options.userId);
+        }
+        if (options.durationSeconds) {
+            params.set('durationSeconds', options.durationSeconds.toString());
+        }
 
         const response = await this.http.json<SessionTokenResponse>(
             'POST',

@@ -8,6 +8,6 @@ const URL_ESCAPE: Record<string, string> = {
 
 export const normalizeUrl = (value: string, encodeSlash = true) => {
     const parts = value.split('/');
-    const normalized = parts.map(v => encodeURIComponent(v).replace(/[!'()*]/g, c => URL_ESCAPE[c]));
+    const normalized = parts.map(v => encodeURIComponent(v).replaceAll(/[!'()*]/g, c => URL_ESCAPE[c]));
     return normalized.join(encodeSlash ? '%2F' : '/');
 };

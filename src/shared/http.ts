@@ -1,4 +1,4 @@
-import {BceCredentialContext, RegionClientOptions} from './interface.js';
+import type {BceCredentialContext, RegionClientOptions} from './interface.js';
 import {Authorization} from './authorization.js';
 import {RequestError} from './error.js';
 
@@ -13,8 +13,8 @@ const isPlainObject = (value: any): value is Record<string, any> => {
     const prototype = Object.getPrototypeOf(value);
     return (
         (prototype === null || prototype === Object.prototype || Object.getPrototypeOf(prototype) === null)
-            && !(Symbol.toStringTag in value)
-            && !(Symbol.iterator in value)
+        && !(Symbol.toStringTag in value)
+        && !(Symbol.iterator in value)
     );
 };
 

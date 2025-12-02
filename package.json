@@ -4,28 +4,21 @@
   "description": "Yet another Baidu Cloud SDK",
   "type": "module",
   "exports": {
-    ".": {
-      "require": "./cjs/index.js",
-      "import": "./es/index.js"
-    }
+    ".": "./es/index.js"
   },
-  "module": "./es/index.js",
-  "main": "./cjs/index.js",
-  "types": "./cjs/index.d.ts",
   "engines": {
-    "node": ">= 16"
+    "node": ">= 24"
   },
   "scripts": {
-    "lint": "eslint src",
-    "build": "tsc -p tsconfig.cjs.json && tsc -p tsconfig.es.json && echo '{\"type\": \"commonjs\"}' > cjs/package.json",
-    "ci": "yarn install --immutable && npm run lint && npm run build",
+    "lint": "oxlint --fix",
+    "build": "tsc -p tsconfig.build.json",
+    "ci": "npm ci && npm run lint && npm run build",
     "release": "standard-version",
     "deploy": "npm publish --access public",
     "prepublishOnly": "npm run ci"
   },
   "files": [
-    "cjs",
-    "es"
+    "dist"
   ],
   "repository": {
     "type": "git",
@@ -42,22 +35,16 @@
   },
   "homepage": "https://github.com/otakustay/bce-sdk#readme",
   "devDependencies": {
-    "@babel/core": "^7.23.9",
-    "@babel/eslint-parser": "^7.23.10",
-    "@babel/eslint-plugin": "^7.23.5",
-    "@commitlint/cli": "^18.6.0",
-    "@commitlint/config-conventional": "^18.6.0",
-    "@ecomfe/eslint-config": "^8.0.0",
-    "@types/babel__core": "^7.20.5",
-    "@types/eslint": "^8.56.2",
-    "@types/node": "16.18.79",
-    "@typescript-eslint/eslint-plugin": "^6.21.0",
-    "@typescript-eslint/parser": "^6.21.0",
-    "eslint": "^8.56.0",
-    "husky": "^9.0.10",
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "@commitlint/types": "^20.0.0",
+    "@types/node": "24.10.1",
+    "dprint": "^0.50.2",
+    "husky": "^9.1.7",
+    "oxlint": "^1.30.0",
+    "oxlint-tsgolint": "^0.8.3",
     "standard-version": "^9.5.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
-  },
-  "packageManager": "yarn@4.1.0+sha256.81a00df816059803e6b5148acf03ce313cad36b7f6e5af6efa040a15981a6ffb"
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
 }

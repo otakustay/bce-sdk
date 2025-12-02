@@ -1,6 +1,8 @@
-import {RegionClientOptions, Http} from '../shared/index.js';
-import {BosBucketClient, ListObjectOptions} from './bucket.js';
-import {ObjectBody, PutObjectOptions} from './object.js';
+import {Http} from '../shared/index.js';
+import type {RegionClientOptions} from '../shared/index.js';
+import {BosBucketClient} from './bucket.js';
+import type {ListObjectOptions} from './bucket.js';
+import type {ObjectBody, PutObjectOptions} from './object.js';
 
 export type {ObjectBody, PutObjectOptions, BosObjectClient} from './object.js';
 export type {
