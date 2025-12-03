@@ -16,6 +16,15 @@ export type {
     QueryLogRecordResponseV2,
     LogRecordResultItem,
     BlsOptions,
+    DownloadTaskState,
+    CreateDownloadTaskRequest,
+    CreateDownloadTaskResult,
+    CreateDownloadTaskResponse,
+    GetDownloadTaskLinkResult,
+    GetDownloadTaskLinkResponse,
+    DownloadTask,
+    DescribeDownloadTaskResult,
+    DescribeDownloadTaskResponse,
 } from './bls/index.js';
 export {BlsClient} from './bls/index.js';
 export type {
