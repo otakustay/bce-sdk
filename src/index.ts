@@ -9,11 +9,8 @@ export type {
 export {RequestError, isRequestError} from './shared/index.js';
 export type {
     LogRecordQuery,
-    LogRecordQueryV2,
     LogRecordResultSet,
-    LogRecordResultSetV2,
     QueryLogRecordResponse,
-    QueryLogRecordResponseV2,
     LogRecordResultItem,
     BlsOptions,
     DownloadTaskState,

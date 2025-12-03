@@ -10,11 +10,43 @@ export interface LogRecordQuery {
     query: string;
     startDateTime: Date;
     endDateTime: Date;
-}
-
-export interface LogRecordQueryV2 extends LogRecordQuery {
+    project?: string;
+    logStreamName?: string;
     limit?: number;
     sort?: 'asc' | 'desc';
+    marker?: string;
+    pageNo?: number;
+    pageSize?: number;
+}
+
+export interface LogRecordResultItem {
+    timestamp: number;
+    stream: string;
+    tags: Array<Record<string, unknown>>;
+    offset: number;
+    message: string;
+}
+
+export interface LogRecordResultSet {
+    queryType: 'match' | 'sql';
+    columns: string[];
+    columnTypes: string[];
+    rows: any[][];
+    tags?: Array<Record<string, string>>;
+}
+
+export interface DatasetScanInfo {
+    statistics: {
+        executionTimeInMs: number;
+        scanCount: number;
+        scanBytes: number;
+    };
+}
+
+export interface QueryLogRecordResponse {
+    nextMarker?: string;
+    resultSet: LogRecordResultSet;
+    datasetScanInfo: DatasetScanInfo;
 }
 
 export enum DownloadTaskState {
@@ -22,7 +54,7 @@ export enum DownloadTaskState {
     RUNNING = 'RUNNING',
     SUCCESS = 'SUCCESS',
     FAILED = 'FAILED',
-    EXPIRED = 'EXPIRED'
+    EXPIRED = 'EXPIRED',
 }
 
 export interface CreateDownloadTaskRequest {
@@ -98,38 +130,6 @@ export interface DescribeDownloadTaskResponse {
     result: DescribeDownloadTaskResult;
 }
 
-interface LogRecordResultSetBase {
-    columns: string[];
-    isTruncated: boolean;
-    truncatedReason: string;
-}
-
-export interface LogRecordResultSet extends LogRecordResultSetBase {
-    columns: string[];
-    isTruncated: boolean;
-    truncatedReason: string;
-}
-
-export interface QueryLogRecordResponse {
-    resultSet?: LogRecordResultSet;
-}
-
-export interface LogRecordResultItem {
-    timestamp: number;
-    stream: string;
-    tags: Array<Record<string, unknown>>;
-    offset: number;
-    message: string;
-}
-
-export interface LogRecordResultSetV2 extends LogRecordResultSetBase {
-    logRecords: LogRecordResultItem[];
-}
-
-export interface QueryLogRecordResponseV2 {
-    resultSet?: LogRecordResultSetV2;
-}
-
 export type BlsOptions = RegionClientOptions;
 
 export class BlsClient {
@@ -138,35 +138,24 @@ export class BlsClient {
     constructor(options: BlsOptions) {
         this.http = Http.fromRegionSupportedServiceId('bls-log', options);
     }
+    async queryLogRecord(options: LogRecordQuery) {
+        const params: Record<string, any> = {
+            query: options.query,
+            startDateTime: stringifyDate(options.startDateTime),
+            endDateTime: stringifyDate(options.endDateTime),
+            project: options.project,
+            logStreamName: options.logStreamName,
+            limit: options.limit,
+            sort: options.sort,
+            marker: options.marker,
+            pageNo: options.pageNo,
+            pageSize: options.pageSize,
+        };
 
-    async queryLogRecord({logStoreName, query, startDateTime, endDateTime}: LogRecordQuery) {
         const response = await this.http.json<QueryLogRecordResponse>(
             'GET',
-            `/v1/logstore/${logStoreName}/logrecord`,
-            {
-                params: {
-                    query,
-                    startDateTime: stringifyDate(startDateTime),
-                    endDateTime: stringifyDate(endDateTime),
-                },
-            }
-        );
-        return response;
-    }
-
-    async queryLogRecordV2({logStoreName, query, startDateTime, endDateTime, limit, sort}: LogRecordQueryV2) {
-        const response = await this.http.json<QueryLogRecordResponseV2>(
-            'GET',
-            `/v2/logstore/${logStoreName}/logrecord`,
-            {
-                params: {
-                    query,
-                    limit,
-                    sort,
-                    startDateTime: stringifyDate(startDateTime),
-                    endDateTime: stringifyDate(endDateTime),
-                },
-            }
+            `/v1/logstore/${options.logStoreName}/logrecord`,
+            {params}
         );
         return response;
     }
