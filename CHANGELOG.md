@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/otakustay/bce-sdk/compare/v1.0.0...v1.1.0) (2025-12-04)
+
+
+### Features
+
+* **cdn:** 支持CDN的预热和刷新功能 ([#5](https://github.com/otakustay/bce-sdk/issues/5)) ([c6983b1](https://github.com/otakustay/bce-sdk/commit/c6983b13d7666305d02e0c9e3b5634b7a64d1b3c))
+
 ## 1.0.0 (2025-12-04)
 
 
