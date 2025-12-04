@@ -1,0 +1,14 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":disableDependencyDashboard"
+  ],
+  "autoApprove": true,
+  "automerge": true,
+  "semanticCommits": "enabled",
+  "semanticCommitScope": "",
+  "lockFileMaintenance": {
+    "enabled": true
+  }
+}

@@ -16,9 +16,11 @@
     "lint": "oxlint --fix",
     "build": "tsc -p tsconfig.build.json",
     "ci": "npm ci && npm run lint && npm run build",
-    "release": "standard-version",
-    "deploy": "npm publish --access public",
+    "prepare": "husky",
     "prepublishOnly": "npm run ci"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "files": [
     "dist"
@@ -48,7 +50,6 @@
     "husky": "^9.1.7",
     "oxlint": "^1.30.0",
     "oxlint-tsgolint": "^0.8.3",
-    "standard-version": "^9.5.0",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }
