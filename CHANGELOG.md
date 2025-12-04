@@ -2,6 +2,67 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.0.0 (2025-12-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* **bls:** 删除BLS的queryLogRecordV2方法
+* 迁移至纯ESM模块
+* 更新license字段为Apache-2.0
+* **bos:** 放弃对浏览器的兼容
+* 使用Node原生的fetch函数
+* 请求失败时抛出异常
+* 发布为CommonJS格式
+
+### Features
+
+* **bls:** 增加BLS日志下载相关方法 ([f5a0453](https://github.com/otakustay/bce-sdk/commit/f5a0453cece1d94e7d7fdfd6884051dea6699369))
+* **bls:** 实现BLS的日志查询功能 ([#1](https://github.com/otakustay/bce-sdk/issues/1)) ([1770d9c](https://github.com/otakustay/bce-sdk/commit/1770d9c1302bc1c6ab1102ea43d15e7881fb08b7))
+* **bls:** 支持V2版本queryLogRecord接口 ([3a9119f](https://github.com/otakustay/bce-sdk/commit/3a9119f91e026e9c6a2f6c99b4af7bdf9689bd69))
+* **bos:** 实现BOS上传对象 ([#2](https://github.com/otakustay/bce-sdk/issues/2)) ([2ac0cca](https://github.com/otakustay/bce-sdk/commit/2ac0cca745701ce1e1a45485b8376d53f663330b))
+* **bos:** 实现BOS删除对象 ([#2](https://github.com/otakustay/bce-sdk/issues/2)) ([bafc42d](https://github.com/otakustay/bce-sdk/commit/bafc42d267b09f17128e41d700fbf7dc26c41fc5))
+* **bos:** 实现BOS对象列表功能 ([#2](https://github.com/otakustay/bce-sdk/issues/2)) ([2550e46](https://github.com/otakustay/bce-sdk/commit/2550e466a5567f6a7ea14521a714e432ce778fd4))
+* **bos:** 实现BOS获取单个对象 ([#2](https://github.com/otakustay/bce-sdk/issues/2)) ([594ae59](https://github.com/otakustay/bce-sdk/commit/594ae5905ad9f7c9123e3aa3bc677d21eac147bd))
+* **bos:** 支持getObjectMeta ([#2](https://github.com/otakustay/bce-sdk/issues/2)) ([36408a0](https://github.com/otakustay/bce-sdk/commit/36408a051653a9703a762c2b7dd2da17d60dea0a))
+* **bos:** 支持在bucket层级操作object ([00f64b4](https://github.com/otakustay/bce-sdk/commit/00f64b48d54aa75e45e11058aa412b21c509090e))
+* **bos:** 支持绑定bucket和object调用API ([7d1d4e0](https://github.com/otakustay/bce-sdk/commit/7d1d4e08c28b04b23353ea2f76cc1b057384a8ce))
+* **sts:** 实现STS服务 ([#3](https://github.com/otakustay/bce-sdk/issues/3)) ([ce14ecb](https://github.com/otakustay/bce-sdk/commit/ce14ecb2bf2cc85e4428ea6d22459e7365dd14ba))
+* **sts:** 导出更多STS的类型 ([26f42f6](https://github.com/otakustay/bce-sdk/commit/26f42f6b948886e4370ccd6705e0b6a9bb7fea30))
+* 兼容NodeJS 16版本 ([2ca3e66](https://github.com/otakustay/bce-sdk/commit/2ca3e666df746a389b14fc21fb7813c4370e46c5))
+* 同时发布ES和CJS版本 ([7072459](https://github.com/otakustay/bce-sdk/commit/7072459fe50b2153bd64a6df78668c1a04e0ad02))
+* 支持STS认证 ([7495311](https://github.com/otakustay/bce-sdk/commit/7495311fb1687caedbae25e60e7ce4b6d1a70fb9))
+* 支持浏览器环境使用 ([bf0940a](https://github.com/otakustay/bce-sdk/commit/bf0940aa237eb3cc1e36967d28a9cf2d5bb03e6a))
+* 添加请求与签名的基类 ([888b7de](https://github.com/otakustay/bce-sdk/commit/888b7ded3de6c47cd792ff091eb9160aeeb8f1ec))
+* 请求失败时抛出异常 ([49776c9](https://github.com/otakustay/bce-sdk/commit/49776c98928fec7640d784116f15c2165399b21f))
+* 迁移至纯ESM模块 ([8af8ff4](https://github.com/otakustay/bce-sdk/commit/8af8ff4dc8570612d48c9c44ac624085f1ee6b45))
+
+
+### Bug Fixes
+
+* **auth:** 修复URL中有中文的签名算法 ([75b023a](https://github.com/otakustay/bce-sdk/commit/75b023a33e4aa2a26d151d5eb4832fa170909a0f))
+* **bos:** 修复key中包含特殊字符时的逻辑 ([fd69fb2](https://github.com/otakustay/bce-sdk/commit/fd69fb28d01b5f107e985b77fa5b3efd2b395279))
+* **bos:** 修复签名算法与BOS的key处理冲突 ([fdaee25](https://github.com/otakustay/bce-sdk/commit/fdaee25a86d8a69e0ba82530f41e90aac39302dc))
+* **bos:** 导出bucket和object的client类型 ([32fb023](https://github.com/otakustay/bce-sdk/commit/32fb023e49c0a246c3da487c24fa9d144cf981b6))
+* **http:** 错误地使用了sessionToken ([1195947](https://github.com/otakustay/bce-sdk/commit/1195947e0e0afd8341829c3be76d5a2a3effc2cc))
+* 修复CommonJS的构建产出 ([58a8fdd](https://github.com/otakustay/bce-sdk/commit/58a8fddb6f4d3be155bdbb9176190ec6969fd67c))
+* 修复对BOS对象处理时的URL错误 ([3c17ef2](https://github.com/otakustay/bce-sdk/commit/3c17ef287f5395396012cceaa0f4e869ffde4f68))
+* 兼容NodeJS 20要求duplex参数 ([#4](https://github.com/otakustay/bce-sdk/issues/4)) ([7d2a320](https://github.com/otakustay/bce-sdk/commit/7d2a3206f80bfbb50b5f3fc14d21281d020b4e71))
+* 发布为CommonJS格式 ([11d7bd0](https://github.com/otakustay/bce-sdk/commit/11d7bd05eec5575973cbb3ca2ffbf78a301c60d6))
+* 发布前运行CI检查 ([820bc68](https://github.com/otakustay/bce-sdk/commit/820bc68d93190246a31166e76aa0449e489dbe2d))
+* 更新BOS的请求地址解决认证失败问题 ([f784efc](https://github.com/otakustay/bce-sdk/commit/f784efc4203899198dbb049a189afc29ff226c47))
+
+
+### Miscellaneous Chores
+
+* 更新license字段为Apache-2.0 ([ea49c35](https://github.com/otakustay/bce-sdk/commit/ea49c3500aab17244d580faf22be811fcebd3968))
+
+
+### Code Refactoring
+
+* **bls:** 删除BLS的queryLogRecordV2方法 ([86038d1](https://github.com/otakustay/bce-sdk/commit/86038d1b26e8350540634c74f8705a91f78807d7))
+* 使用Node原生的fetch函数 ([f40e20a](https://github.com/otakustay/bce-sdk/commit/f40e20a4fbfdc6324cd8521088bba2fa16c7f374))
+
 ### [0.12.13](https://github.com/otakustay/bce-sdk/compare/v0.12.12...v0.12.13) (2024-06-14)
 
 
