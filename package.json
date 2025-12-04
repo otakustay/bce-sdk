@@ -4,7 +4,10 @@
   "description": "Yet another Baidu Cloud SDK",
   "type": "module",
   "exports": {
-    ".": "./es/index.js"
+    ".": "./dist/shared/index.js",
+    "./bos": "./dist/bos/index.js",
+    "./bls": "./dist/bls/index.js",
+    "./sts": "./dist/sts/index.js"
   },
   "engines": {
     "node": ">= 24"
@@ -26,7 +29,9 @@
   },
   "keywords": [
     "bce",
-    "bos"
+    "bos",
+    "bls",
+    "sts"
   ],
   "author": "otakustay <otakustay@gmail.com>",
   "license": "Apache-2.0",

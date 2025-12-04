@@ -138,6 +138,10 @@ export class BlsClient {
     constructor(options: BlsOptions) {
         this.http = Http.fromRegionSupportedServiceId('bls-log', options);
     }
+
+    /**
+     * @see https://cloud.baidu.com/doc/BLS/s/hk8to0l9o
+     */
     async queryLogRecord(options: LogRecordQuery) {
         const params: Record<string, any> = {
             query: options.query,
@@ -160,6 +164,9 @@ export class BlsClient {
         return response;
     }
 
+    /**
+     * @see https://cloud.baidu.com/doc/BLS/s/Hm344rht7
+     */
     async createDownloadTask(request: CreateDownloadTaskRequest) {
         const response = await this.http.json<CreateDownloadTaskResponse>(
             'POST',
@@ -171,6 +178,9 @@ export class BlsClient {
         return response;
     }
 
+    /**
+     * @see https://cloud.baidu.com/doc/BLS/s/6m348wh16
+     */
     async getDownloadTaskLink(uuid: string) {
         const response = await this.http.json<GetDownloadTaskLinkResponse>(
             'GET',
@@ -179,6 +189,9 @@ export class BlsClient {
         return response;
     }
 
+    /**
+     * @see https://cloud.baidu.com/doc/BLS/s/um347nkxz
+     */
     async describeDownloadTask(uuid: string) {
         const response = await this.http.json<DescribeDownloadTaskResponse>(
             'GET',

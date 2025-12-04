@@ -1,7 +1,5 @@
 import type {RegionClientOptions} from '../shared/index.js';
-import { Http} from '../shared/index.js';
-
-// https://cloud.baidu.com/doc/IAM/s/Qjwvyc8ov
+import {Http} from '../shared/index.js';
 
 export interface AssumeRoleOptions {
     accountId: string;
@@ -12,7 +10,6 @@ export interface AssumeRoleOptions {
 }
 
 // https://cloud.baidu.com/doc/BOS/s/Tjwvysda9
-
 export interface AccessControlDescription {
     id?: string;
     eid?: string;
@@ -47,6 +44,9 @@ export class StsClient {
         this.http = Http.fromRegionSupportedServiceId('sts', options);
     }
 
+    /**
+     * @see https://cloud.baidu.com/doc/IAM/s/Qjwvyc8ov
+     */
     async getSessionToken(options: SessionTokenOptions) {
         const response = await this.http.json<SessionTokenResponse>(
             'POST',
@@ -62,6 +62,9 @@ export class StsClient {
         return response;
     }
 
+    /**
+     * @see https://cloud.baidu.com/doc/IAM/s/Qjwvyc8ov
+     */
     async assumeRole(options: AssumeRoleOptions) {
         const params = new URLSearchParams();
         params.set('assumeRole', '');
