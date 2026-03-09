@@ -12,7 +12,7 @@
     "./cfc": "./dist/cfc/index.js"
   },
   "engines": {
-    "node": ">= 18.0.0"
+    "node": ">= 22.0.0"
   },
   "scripts": {
     "lint": "oxlint --fix",
@@ -44,14 +44,14 @@
   },
   "homepage": "https://github.com/otakustay/bce-sdk#readme",
   "devDependencies": {
-    "@commitlint/cli": "^20.1.0",
-    "@commitlint/config-conventional": "^20.0.0",
-    "@commitlint/types": "^20.0.0",
-    "@types/node": "24.10.1",
-    "dprint": "^0.50.2",
+    "@commitlint/cli": "^20.4.3",
+    "@commitlint/config-conventional": "^20.4.3",
+    "@commitlint/types": "^20.4.3",
+    "@types/node": "^22.0.0",
+    "dprint": "^0.52.0",
     "husky": "^9.1.7",
-    "oxlint": "^1.30.0",
-    "oxlint-tsgolint": "^0.8.3",
+    "oxlint": "^1.51.0",
+    "oxlint-tsgolint": "^0.16.0",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }
