@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/otakustay/bce-sdk/compare/v1.1.0...v2.0.0) (2026-03-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* 兼容NodeJS 22版本
+
+### Features
+
+* **cfc:** 支持CFC相关API ([9cacbc4](https://github.com/otakustay/bce-sdk/commit/9cacbc4a46773e516f178b3f34be17f6aecd66ab))
+
+
+### Miscellaneous Chores
+
+* 兼容NodeJS 22版本 ([1008f58](https://github.com/otakustay/bce-sdk/commit/1008f58754e21f456607834087e943e469436218))
+
 ## [1.1.0](https://github.com/otakustay/bce-sdk/compare/v1.0.0...v1.1.0) (2025-12-04)
 
 
