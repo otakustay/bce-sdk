@@ -8,9 +8,6 @@ interface DocLinkInfo {
     link: string;
 }
 
-/**
- * 验证单个文档链接
- */
 async function validateSingleLink(docInfo: DocLinkInfo): Promise<{isValid: boolean, error?: string}> {
     try {
         const response: Response = await fetch(docInfo.link);
@@ -18,7 +15,7 @@ async function validateSingleLink(docInfo: DocLinkInfo): Promise<{isValid: boole
         if (response.status !== 200) {
             return {
                 isValid: false,
-                error: `响应码为 ${response.status}`,
+                error: `HTTP ${response.status}`,
             };
         }
         return {isValid: true};
@@ -26,14 +23,11 @@ async function validateSingleLink(docInfo: DocLinkInfo): Promise<{isValid: boole
     catch {
         return {
             isValid: false,
-            error: '请求失败',
+            error: 'request failed',
         };
     }
 }
 
-/**
- * 解析表格行，提取文档信息
- */
 function parseDocLine(line: string): DocLinkInfo | null {
     const parts: string[] = line.split('|').map(part => part.trim()).filter(part => !!part);
 
@@ -45,23 +39,18 @@ function parseDocLine(line: string): DocLinkInfo | null {
     return null;
 }
 
-// 验证README.md中的百度云文档链接
 try {
-    // 1. 读取README.md文件
     const readmePath: string = path.join(process.cwd(), 'README.md');
     const content: string = fs.readFileSync(readmePath, 'utf8');
 
-    // 2. 提取所有包含https://cloud.baidu.com/doc/为前缀的URL的行
     const lines: string[] = content.split('\n');
     const docLines: string[] = lines.filter(line => line.includes('https://cloud.baidu.com/doc/'));
 
-    console.log(`找到 ${docLines.length} 个文档链接，开始验证...\n`);
+    console.log(`Found ${docLines.length} doc link(s), validating...\n`);
 
     const errors: string[] = [];
 
-    // 3. 处理每一行
     for (const line of docLines) {
-        // 跳过表头行
         if (line.includes('模块') || line.includes('---')) {
             continue;
         }
@@ -74,18 +63,18 @@ try {
             }
         }
     }
-    // 4. 输出结果
+
     if (errors.length === 0) {
-        console.log('✅ 全部链接有效');
+        console.log('✅ All links valid');
     }
     else {
-        console.log(`❌ 发现 ${errors.length} 个无效链接:`);
+        console.log(`❌ Found ${errors.length} invalid link(s):`);
         for (const error of errors) {
             console.log(`   - ${error}`);
         }
     }
 }
 catch {
-    console.error('脚本执行失败');
+    console.error('Script failed');
     process.exit(1);
 }
