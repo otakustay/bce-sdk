@@ -13,9 +13,9 @@ export class BosObjectClient {
     private readonly http: Http;
     private readonly objectUrl: string;
 
-    constructor(http: Http, bucketName: string, objectKey: string) {
+    constructor(http: Http, objectKey: string) {
         this.http = http;
-        this.objectUrl = `/v1/${bucketName}/${normalizeUrl(objectKey, false)}`;
+        this.objectUrl = `/${normalizeUrl(objectKey, false)}`;
     }
 
     async get() {

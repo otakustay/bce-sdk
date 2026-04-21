@@ -40,17 +40,14 @@ export interface ListObjectResponse {
 
 export class BosBucketClient {
     private readonly http: Http;
-    private readonly bucketUrl: string;
-    private readonly bucketName: string;
+    private readonly bucketUrl = '/';
 
-    constructor(http: Http, bucketName: string) {
+    constructor(http: Http) {
         this.http = http;
-        this.bucketUrl = `/v1/${bucketName}`;
-        this.bucketName = bucketName;
     }
 
     withObject(objectKey: string) {
-        return new BosObjectClient(this.http, this.bucketName, objectKey);
+        return new BosObjectClient(this.http, objectKey);
     }
 
     async listObjects(options?: ListObjectOptions) {
