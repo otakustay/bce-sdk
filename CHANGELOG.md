@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.12.14](https://github.com/otakustay/bce-sdk/compare/v0.12.13...v0.12.14) (2026-04-21)
+
+
+### Bug Fixes
+
+* use real http domain instead of host header ([15aeec9](https://github.com/otakustay/bce-sdk/commit/15aeec9344cd2ae806583a0dd653dbea26d344cb))
+
 ### [0.12.13](https://github.com/otakustay/bce-sdk/compare/v0.12.12...v0.12.13) (2024-06-14)
 
 
