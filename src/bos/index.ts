@@ -2,9 +2,9 @@ import {Http} from '../shared/index.js';
 import type {RegionClientOptions} from '../shared/index.js';
 import {BosBucketClient} from './bucket.js';
 import type {ListObjectOptions} from './bucket.js';
-import type {ObjectBody, PutObjectOptions} from './object.js';
+import type {JsonObjectBody, ObjectBody, PutObjectOptions} from './object.js';
 
-export type {ObjectBody, PutObjectOptions, BosObjectClient} from './object.js';
+export type {JsonObjectBody, ObjectBody, PutObjectOptions, BosObjectClient} from './object.js';
 export type {
     CommonPrefix,
     ListObjectOptions,
@@ -71,6 +71,13 @@ export class BosClient {
      */
     async putObject(bucketName: string, key: string, body: ObjectBody, options?: PutObjectOptions) {
         return this.withObject(bucketName, key).put(body, options);
+    }
+
+    /**
+     * @see https://cloud.baidu.com/doc/BOS/s/Ikc5nv3wc
+     */
+    async putObjectJson(bucketName: string, key: string, body: JsonObjectBody, options?: PutObjectOptions) {
+        return this.withObject(bucketName, key).putJson(body, options);
     }
 
     /**

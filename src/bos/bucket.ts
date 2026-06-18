@@ -1,6 +1,6 @@
 import type {Http} from '../shared/index.js';
 import {BosObjectClient} from './object.js';
-import type { ObjectBody, PutObjectOptions} from './object.js';
+import type {JsonObjectBody, ObjectBody, PutObjectOptions} from './object.js';
 
 export interface ListObjectOptions {
     delimiter?: string;
@@ -88,6 +88,10 @@ export class BosBucketClient {
 
     async putObject(key: string, body: ObjectBody, options?: PutObjectOptions) {
         return this.withObject(key).put(body, options);
+    }
+
+    async putObjectJson(key: string, body: JsonObjectBody, options?: PutObjectOptions) {
+        return this.withObject(key).putJson(body, options);
     }
 
     async putObjectFromFile(key: string, file: string, options?: PutObjectOptions) {

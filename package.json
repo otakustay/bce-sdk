@@ -4,12 +4,30 @@
   "description": "Yet another Baidu Cloud SDK",
   "type": "module",
   "exports": {
-    ".": "./dist/shared/index.js",
-    "./bos": "./dist/bos/index.js",
-    "./bls": "./dist/bls/index.js",
-    "./sts": "./dist/sts/index.js",
-    "./cdn": "./dist/cdn/index.js",
-    "./cfc": "./dist/cfc/index.js"
+    ".": {
+      "types": "./dist/shared/index.d.ts",
+      "default": "./dist/shared/index.js"
+    },
+    "./bos": {
+      "types": "./dist/bos/index.d.ts",
+      "default": "./dist/bos/index.js"
+    },
+    "./bls": {
+      "types": "./dist/bls/index.d.ts",
+      "default": "./dist/bls/index.js"
+    },
+    "./sts": {
+      "types": "./dist/sts/index.d.ts",
+      "default": "./dist/sts/index.js"
+    },
+    "./cdn": {
+      "types": "./dist/cdn/index.d.ts",
+      "default": "./dist/cdn/index.js"
+    },
+    "./cfc": {
+      "types": "./dist/cfc/index.d.ts",
+      "default": "./dist/cfc/index.js"
+    }
   },
   "engines": {
     "node": ">= 22.0.0"

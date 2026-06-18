@@ -53,6 +53,7 @@ console.log(response.body.contents);
 | @otakustay/bce-sdk/bos | BosClient | getObjectAsStream           | https://cloud.baidu.com/doc/BOS/s/xkc5pcmcj |
 | @otakustay/bce-sdk/bos | BosClient | getObjectMeta               | https://cloud.baidu.com/doc/BOS/s/6kc5suqj3 |
 | @otakustay/bce-sdk/bos | BosClient | putObject                   | https://cloud.baidu.com/doc/BOS/s/Ikc5nv3wc |
+| @otakustay/bce-sdk/bos | BosClient | putObjectJson               | https://cloud.baidu.com/doc/BOS/s/Ikc5nv3wc |
 | @otakustay/bce-sdk/bos | BosClient | putObjectFromFile           | https://cloud.baidu.com/doc/BOS/s/Ikc5nv3wc |
 | @otakustay/bce-sdk/bos | BosClient | deleteObject                | https://cloud.baidu.com/doc/BOS/s/bkc5tsslq |
 | @otakustay/bce-sdk/cdn | CdnClient | prefetch                    | https://cloud.baidu.com/doc/CDN/s/Rjwvyf0ff |

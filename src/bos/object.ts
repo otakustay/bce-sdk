@@ -7,7 +7,8 @@ export interface PutObjectOptions {
     headers?: Record<string, string>;
 }
 
-export type ObjectBody = string | Blob | ArrayBuffer | Readable;
+export type ObjectBody = BodyInit;
+export type JsonObjectBody = Record<string, unknown>;
 
 export class BosObjectClient {
     private readonly http: Http;
@@ -35,11 +36,7 @@ export class BosObjectClient {
 
     async getAsStream() {
         const response = await this.http.stream('GET', this.objectUrl);
-        return {
-            headers: response.headers,
-            // @ts-expect-error 都是`WebStream`，只是Node的类型不兼容，实际是能用的
-            body: Readable.fromWeb(response.body),
-        };
+        return response;
     }
 
     async put(body: ObjectBody, options?: PutObjectOptions) {
@@ -56,8 +53,22 @@ export class BosObjectClient {
         return response;
     }
 
+    async putJson(body: JsonObjectBody, options?: PutObjectOptions) {
+        const response = await this.http.noContent(
+            'PUT',
+            this.objectUrl,
+            {
+                body,
+                headers: {
+                    ...options?.headers,
+                },
+            }
+        );
+        return response;
+    }
+
     async putFromFile(file: string, options?: PutObjectOptions) {
-        const stream = fs.createReadStream(file);
+        const stream = Readable.toWeb(fs.createReadStream(file)) as ReadableStream<Uint8Array>;
         const response = await this.put(stream, options);
         return response;
     }
