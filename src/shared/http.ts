@@ -20,15 +20,17 @@ const isPlainObject = (value: any): value is Record<string, any> => {
 
 const BASE_DOMAIN = 'baidubce.com';
 
+type HeaderDict = Record<string, string | undefined | null>;
+
 interface HttpContext {
-    headers?: Record<string, string>;
+    headers?: HeaderDict;
 }
 
 type SearchParamsDict = Record<string, string | number | undefined | null | undefined>;
 
 export interface RequestOptions {
     params?: URLSearchParams | SearchParamsDict | undefined;
-    headers?: Record<string, string>;
+    headers?: HeaderDict;
     body?: BodyInit | Record<string, any> | undefined;
 }
 
@@ -172,11 +174,12 @@ export class Http {
     }
 
     private constructHeaders(options: RequestOptions | undefined) {
-        const headers: Record<string, string> = {
-            // 允许覆盖`host`头，但`x-bce-date`永远是内部生成的，不然签名过不去
-            ...this.headers,
-            ...options?.headers,
-        };
+        const headers: Record<string, string> = {};
+        for (const [key, value] of Object.entries({...this.headers, ...options?.headers})) {
+            if (value != null) {
+                headers[key] = value;
+            }
+        }
         if (this.context.sessionToken) {
             headers['x-bce-security-token'] = this.context.sessionToken;
         }

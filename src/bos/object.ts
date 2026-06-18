@@ -3,8 +3,28 @@ import {Readable} from 'node:stream';
 import type {Http} from '../shared/index.js';
 import {normalizeUrl} from '../utils/string.js';
 
+export type BosStorageClass = 'STANDARD' | 'STANDARD_IA' | 'COLD' | 'ARCHIVE' | 'MAZ_STANDARD_IA' | 'MAZ_STANDARD';
+
+export type CopyObjectMetadataDirective = 'copy' | 'replace' | 'update';
+
+export type CopyObjectTaggingDirective = 'Copy' | 'Replace';
+
 export interface PutObjectOptions {
     headers?: Record<string, string>;
+}
+
+export interface CopyObjectOptions {
+    sourceBucketName: string;
+    sourceObjectKey: string;
+    headers?: Record<string, string>;
+    metadataDirective?: CopyObjectMetadataDirective;
+    storageClass?: BosStorageClass;
+    taggingDirective?: CopyObjectTaggingDirective;
+}
+
+export interface CopyObjectResponse {
+    ETag: string;
+    lastModified: string;
 }
 
 export type ObjectBody = BodyInit;
@@ -70,6 +90,23 @@ export class BosObjectClient {
     async putFromFile(file: string, options?: PutObjectOptions) {
         const stream = Readable.toWeb(fs.createReadStream(file)) as ReadableStream<Uint8Array>;
         const response = await this.put(stream, options);
+        return response;
+    }
+
+    async copyFrom(options: CopyObjectOptions) {
+        const response = await this.http.json<CopyObjectResponse>(
+            'PUT',
+            this.objectUrl,
+            {
+                headers: {
+                    ...options.headers,
+                    'x-bce-copy-source': `/${options.sourceBucketName}/${normalizeUrl(options.sourceObjectKey, false)}`,
+                    'x-bce-metadata-directive': options.metadataDirective ?? 'copy',
+                    'x-bce-storage-class': options.storageClass,
+                    'x-bce-tagging-directive': options.taggingDirective,
+                },
+            }
+        );
         return response;
     }
 
