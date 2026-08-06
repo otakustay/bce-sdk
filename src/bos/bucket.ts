@@ -5,6 +5,7 @@ import type {
     JsonObjectBody,
     ObjectBody,
     PutObjectOptions,
+    UploadFileByMultipartOptions,
 } from './object.js';
 
 export interface ListObjectOptions {
@@ -101,6 +102,10 @@ export class BosBucketClient {
 
     async putObjectFromFile(key: string, file: string, options?: PutObjectOptions) {
         return this.withObject(key).putFromFile(file, options);
+    }
+
+    async uploadObjectByMultipart(key: string, file: string, options: UploadFileByMultipartOptions) {
+        return this.withObject(key).uploadFileByMultipart(file, options);
     }
 
     async copyObject(key: string, options: CopyObjectOptions) {

@@ -55,8 +55,10 @@ console.log(response.body.contents);
 | @otakustay/bce-sdk/bos | BosClient              | putObject                   | https://cloud.baidu.com/doc/BOS/s/Ikc5nv3wc |
 | @otakustay/bce-sdk/bos | BosClient              | putObjectJson               | https://cloud.baidu.com/doc/BOS/s/Ikc5nv3wc |
 | @otakustay/bce-sdk/bos | BosClient              | putObjectFromFile           | https://cloud.baidu.com/doc/BOS/s/Ikc5nv3wc |
+| @otakustay/bce-sdk/bos | BosClient              | uploadObjectByMultipart     | https://cloud.baidu.com/doc/BOS/s/Nkc5uy7ox |
 | @otakustay/bce-sdk/bos | BosClient              | copyObject                  | https://cloud.baidu.com/doc/BOS/s/Lkc5p9g3w |
 | @otakustay/bce-sdk/bos | BosClient              | deleteObject                | https://cloud.baidu.com/doc/BOS/s/bkc5tsslq |
+| @otakustay/bce-sdk/bos | BosObjectClient        | uploadFileByMultipart       | https://cloud.baidu.com/doc/BOS/s/Nkc5uy7ox |
 | @otakustay/bce-sdk/cdn | CdnClient              | prefetch                    | https://cloud.baidu.com/doc/CDN/s/Rjwvyf0ff |
 | @otakustay/bce-sdk/cdn | CdnClient              | purge                       | https://cloud.baidu.com/doc/CDN/s/ijwvyeyyj |
 | @otakustay/bce-sdk/cfc | CfcClient              | createFunction              | https://cloud.baidu.com/doc/CFC/s/xjwvz450q |

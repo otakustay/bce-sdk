@@ -30,6 +30,31 @@ export interface CopyObjectResponse {
 export type ObjectBody = BodyInit;
 export type JsonObjectBody = Record<string, unknown>;
 
+interface InitiateMultipartUploadResponse {
+    bucket: string;
+    key: string;
+    uploadId: string;
+}
+
+export interface CompleteMultipartUploadResponse {
+    location: string;
+    bucket: string;
+    key: string;
+    eTag: string;
+}
+
+interface UploadPartTask {
+    partNumber: number;
+    start: number;
+    end: number;
+}
+
+export interface UploadFileByMultipartOptions {
+    partSize: number;
+    concurrency: number;
+    headers?: Record<string, string>;
+}
+
 export class BosObjectClient {
     private readonly http: Http;
     private readonly objectUrl: string;
@@ -113,5 +138,132 @@ export class BosObjectClient {
     async delete() {
         const response = await this.http.noContent('DELETE', this.objectUrl);
         return response;
+    }
+
+    /**
+     * @see https://cloud.baidu.com/doc/BOS/s/Nkc5uy7ox
+     */
+    private async initiateMultipartUpload(options?: PutObjectOptions) {
+        const response = await this.http.json<InitiateMultipartUploadResponse>(
+            'POST',
+            this.objectUrl,
+            {
+                params: {uploads: ''},
+                headers: {
+                    ...options?.headers,
+                },
+            }
+        );
+        return response;
+    }
+
+    /**
+     * @see https://cloud.baidu.com/doc/BOS/s/3kc5v4qs0
+     */
+    private async uploadPart(uploadId: string, partNumber: number, body: ObjectBody) {
+        const response = await this.http.noContent(
+            'PUT',
+            this.objectUrl,
+            {
+                params: {partNumber, uploadId},
+                body,
+            }
+        );
+        return response;
+    }
+
+    /**
+     * @see https://cloud.baidu.com/doc/BOS/s/Nkc5vzayc
+     */
+    private async completeMultipartUpload(uploadId: string, parts: Array<{partNumber: number, eTag: string}>) {
+        const response = await this.http.json<CompleteMultipartUploadResponse>(
+            'POST',
+            this.objectUrl,
+            {
+                params: {uploadId},
+                body: {
+                    parts: parts.map(part => ({partNumber: part.partNumber, eTag: part.eTag})),
+                },
+            }
+        );
+        return response;
+    }
+
+    /**
+     * @see https://cloud.baidu.com/doc/BOS/s/Wkc5w2ndt
+     */
+    private async abortMultipartUpload(uploadId: string) {
+        const response = await this.http.noContent(
+            'DELETE',
+            this.objectUrl,
+            {
+                params: {uploadId},
+            }
+        );
+        return response;
+    }
+
+    private splitIntoParts(fileSize: number, partSize: number): UploadPartTask[] {
+        const tasks: UploadPartTask[] = [];
+        let partNumber = 1;
+        for (let start = 0; start < fileSize; start += partSize) {
+            const end = Math.min(start + partSize, fileSize);
+            tasks.push({partNumber, start, end});
+            partNumber += 1;
+        }
+        return tasks;
+    }
+
+    private async runWithConcurrency<T, R>(items: T[], concurrency: number, worker: (item: T) => Promise<R>) {
+        const results: R[] = [];
+        const queue = items.map((item, index) => ({item, index}));
+
+        const runNext = async (): Promise<void> => {
+            const task = queue.shift();
+            if (!task) {
+                return;
+            }
+            results[task.index] = await worker(task.item);
+            await runNext();
+        };
+
+        const workers = Array.from({length: Math.min(concurrency, items.length)}, runNext);
+        await Promise.all(workers);
+        return results;
+    }
+
+    /**
+     * 分片上传单个大文件，文件按`options.partSize`切分后以`options.concurrency`的并发度上传，
+     * 上传过程中任意分片失败都会中止整个上传任务。
+     *
+     * @see https://cloud.baidu.com/doc/BOS/s/Nkc5uy7ox
+     */
+    async uploadFileByMultipart(file: string, options: UploadFileByMultipartOptions) {
+        const fileSize = fs.statSync(file).size;
+        const tasks = this.splitIntoParts(fileSize, options.partSize);
+        const {body: initiateResponse} = await this.initiateMultipartUpload(
+            options.headers ? {headers: options.headers} : undefined
+        );
+        const {uploadId} = initiateResponse;
+
+        try {
+            const uploadResults = await this.runWithConcurrency(
+                tasks,
+                options.concurrency,
+                async task => {
+                    const stream = Readable.toWeb(
+                        fs.createReadStream(file, {start: task.start, end: task.end - 1})
+                    ) as ReadableStream<Uint8Array>;
+                    const {headers} = await this.uploadPart(uploadId, task.partNumber, stream);
+                    return {partNumber: task.partNumber, eTag: headers.etag.replaceAll('"', '')};
+                }
+            );
+            const response = await this.completeMultipartUpload(uploadId, uploadResults);
+            return response;
+        }
+        catch (ex) {
+            await this.abortMultipartUpload(uploadId);
+            throw ex;
+        }
     }
 }
